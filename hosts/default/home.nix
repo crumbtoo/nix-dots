@@ -14,7 +14,7 @@
   xdg.configFile = {
     "awesome".source = ../../dots/awesome-kanagawa;
     # "nvim".source = ../../dots/nvim;
-    "nvim".source = config.lib.file.mkOutOfStoreSymlink /home/crumb/nixos/dots/nvim;
+    "nvim".source = config.lib.file.mkOutOfStoreSymlink /home/crumb/nixos/dots/nvim-nfnl;
   };
 
   home.sessionVariables = {
