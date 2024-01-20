@@ -10,6 +10,19 @@
     (import ../../dots/programs/zsh)
   ];
 
+  # ~/.config
+  xdg.configFile = {
+    "awesome".source = ../../dots/awesome-kanagawa;
+    # "nvim".source = ../../dots/nvim;
+    "nvim".source = config.lib.file.mkOutOfStoreSymlink /home/crumb/nixos/dots/nvim;
+  };
+
+  home.sessionVariables = {
+    EDITOR = "nvim";
+  };
+
+  programs.neovim.plugins = [ pkgs.vimPlugins.vim-plug ];
+
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.

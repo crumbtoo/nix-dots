@@ -16,6 +16,9 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  virtualisation.virtualbox.guest.enable = true;
+  virtualisation.virtualbox.guest.x11 = true;
+
   networking.hostName = "crumbnix"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -59,7 +62,18 @@
     displayManager = {
       sddm.enable = true;
       defaultSession = "none+awesome";
+      # sessionCommands = ''
+      #   xrandr --output Virtual1 --mode 2560x1440
+      # '';
     };
+
+    xrandrHeads = [
+      {
+        output = "Virtual1";
+        primary = true;
+        monitorConfig = ''Option "PreferredMode" "2560x1440"'';
+      }
+    ];
 
     windowManager.awesome = {
       enable = true;
@@ -83,6 +97,7 @@
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     awesome
     git
+    gcc
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -107,7 +122,7 @@
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
   # accidentally delete configuration.nix.
-  system.copySystemConfiguration = true;
+  # system.copySystemConfiguration = true;
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
@@ -133,6 +148,5 @@
       "crumb" = import ./home.nix;
     };
   };
-
 }
 

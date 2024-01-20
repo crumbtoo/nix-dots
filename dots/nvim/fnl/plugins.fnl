@@ -1,0 +1,29 @@
+[ :udayvir-singh/tangerine.nvim
+  :udayvir-singh/hibiscus.nvim
+  :AlexvZyl/nordic.nvim
+  :rebelot/kanagawa.nvim
+  :mhinz/vim-startify
+  :tpope/vim-commentary
+  :nvim-treesitter/nvim-treesitter
+  :jiangmiao/auto-pairs
+  :nvim-lualine/lualine.nvim
+  :editorconfig/editorconfig-vim
+  :kylechui/nvim-surround
+  :akinsho/toggleterm.nvim
+  :tpope/vim-fugitive
+  :nvim-lua/plenary.nvim
+  :nvim-telescope/telescope.nvim
+  :luc-tielen/telescope_hoogle
+  :drmikehenry/vim-headerguard
+  :nvim-tree/nvim-tree.lua
+  :lukas-reineke/indent-blankline.nvim
+  :purescript-contrib/purescript-vim
+  :ggandor/leap.nvim
+  :https://gitlab.com/yorickpeterse/nvim-window.git
+  :Julian/lean.nvim
+  :neovim/nvim-lspconfig
+  :nvim-treesitter/playground
+  :suy/vim-context-commentstring
+  :MattesGroeger/vim-bookmarks
+]
+
