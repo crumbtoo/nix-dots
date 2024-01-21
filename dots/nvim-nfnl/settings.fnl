@@ -22,5 +22,7 @@
   [[Filetype] * "set formatoptions=jcrqlt"])
 
 ;;; filetype
-(exec! [filetype on])
+(exec!
+  [filetype on]
+  [filetype plugin on])
 
