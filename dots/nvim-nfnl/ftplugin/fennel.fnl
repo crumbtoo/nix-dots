@@ -15,6 +15,6 @@
 
 (set vim.b.repl
      (utils.make-repl
-       { :cmd        "fennel"
-       }))
+       { :cmd        "fennel"}))
+       
 

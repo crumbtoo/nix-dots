@@ -29,12 +29,17 @@
   (opts :startup-nvim/startup.nvim
         :config (require :plugins.startup-nvim)
         :dependencies [ :nvim-telescope/telescope.nvim
-                        :nvim-lua/plenary.nvim ])
+                        :nvim-lua/plenary.nvim])
   :https://gitlab.com/yorickpeterse/nvim-window.git
   (opts :akinsho/toggleterm.nvim
         :config (require :plugins.toggleterm))
   (opts :nvim-tree/nvim-tree.lua
         :config (require :plugins.nvim-tree))
+  (opts :Vigemus/iron.nvim
+        :config (require :plugins.iron))
+  (opts :lukas-reineke/indent-blankline.nvim
+        :main :ibl
+        :opts { :scope {:enabled false}})
 
   ;; language tools
   :nvim-treesitter/nvim-treesitter
@@ -45,6 +50,6 @@
         :config (with-plug [p :leap] (p.create_default_mappings)))
   (opts :kylechui/nvim-surround
         :config true)
-  :tpope/vim-commentary
-]
+  :tpope/vim-commentary]
+
 

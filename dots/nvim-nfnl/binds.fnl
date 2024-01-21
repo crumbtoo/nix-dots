@@ -44,7 +44,8 @@
                                     (vim.keymap.del :t :jk {:buffer 0})
                                     (vim.keymap.del :t :kj {:buffer 0}))
                               })]
-        (fn [] (lazygit:toggle))))
+        (fn [] (lazygit:toggle)))
+      "toggle lazygit window")
 
 ;;; vim-fu
 
