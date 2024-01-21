@@ -1,3 +1,6 @@
+(require-macros :hibiscus.core)
+(require-macros :hibiscus.vim)
+
 (macro sparse [...]
   (let [args [...]
         t {}]
@@ -12,12 +15,29 @@
 (macro opts [subject ...]
   `(sparse ,subject & ,...))
 
-[ :udayvir-singh/tangerine.nvim
+(macro with-plug [[binder plugin] & body]
+  `(fn []
+     (let [,binder (require ,plugin)]
+       ,(unpack body))))
 
-  ;; themes
+[ :udayvir-singh/tangerine.nvim ; fennel
+
+  ;; themes / ui
   :rebelot/kanagawa.nvim
+  :nvim-lualine/lualine.nvim
+  (opts :startup-nvim/startup.nvim
+        :config (require :plugins.startup-nvim)
+        :dependencies [ :nvim-telescope/telescope.nvim
+                        :nvim-lua/plenary.nvim ])
 
   ;; language tools
   :nvim-treesitter/nvim-treesitter
+
+  ;; vim-fu
+  :jiangmiao/auto-pairs
+  (opts :ggandor/leap.nvim
+        :config (with-plug [p :leap] (p.create_default_mappings)))
+  (opts :kylechui/nvim-surround
+        :config true)
 ]
 
