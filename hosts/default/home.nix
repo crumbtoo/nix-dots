@@ -12,6 +12,9 @@
 
   # ~/.config
   xdg.configFile = {
+    # change these to use `mkOutOfStoreSymlink` for fast updates, e.g.
+    #       "nvim".source = config.lib.file.mkOutOfStoreSymlink /home/crumb/nixos/dots/nvim-nfnl;
+
     "awesome".source = ../../dots/awesome-kanagawa;
     # "nvim".source = ../../dots/nvim;
     "nvim".source = config.lib.file.mkOutOfStoreSymlink /home/crumb/nixos/dots/nvim-nfnl;
@@ -34,9 +37,10 @@
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = [
-    pkgs.neovim
-    pkgs.discord
+  home.packages = with pkgs; [
+    neovim
+    discord
+    lazygit
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the

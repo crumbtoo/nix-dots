@@ -1,6 +1,12 @@
 (require-macros :hibiscus.core)
 (require-macros :hibiscus.vim)
 
+;;; ui
+(set! splitright)
+;; disable netrw in favour of nvim-tree
+(set vim.g.loaded_netrw 1)
+(set vim.g.loaded_netrwPlugin 1)
+
 ;;; colours
 (color! :kanagawa)
 
@@ -25,4 +31,7 @@
 (exec!
   [filetype on]
   [filetype plugin on])
+
+;;; control
+(set! timeoutlen 500) ; timeout multi-key commands after 500ms
 
