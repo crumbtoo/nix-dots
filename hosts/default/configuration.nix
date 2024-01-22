@@ -95,10 +95,36 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    awesome
+    # awesome
     git
     gcc
+    # inputs.nixpkgs-f2k.packages.${system}.awesome-luajit-git
   ];
+
+  nixpkgs.overlays = [
+    (_: _:
+      {
+        awesome = inputs.nixpkgs-f2k.packages.${pkgs.system}.awesome-luajit-git;
+      }
+    )
+  ];
+
+  # nixpkgs.overlays = [
+  #   (self: super: 
+  #     { myAwesome = super.awesome.overrideAttrs (old: rec 
+  #        { pname = "myAwesome"; 
+  #           version = "git-20220614-3a54221"; 
+  #           src = super.fetchFromGitHub {
+  #             owner = "awesomeWM";
+  #             repo = "awesome"; 
+  #             rev = "e6f5c7980862b7c3ec6c50c643b15ff2249310cc"; 
+  #             sha256 = "sha256-afviu5b86JDWd5F12Ag81JPTu9qbXi3fAlBp9tv58fI=";
+  #            }; 
+  #          patches = []; 
+  #        }); 
+  #     }
+  #   )
+  # ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

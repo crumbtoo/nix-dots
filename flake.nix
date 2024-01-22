@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-f2k.url = "github:fortuneteller2k/nixpkgs-f2k";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -21,6 +22,11 @@
           modules = [ 
             ./hosts/default/configuration.nix
             inputs.home-manager.nixosModules.default
+            {
+              nixpkgs.overlays = [
+                inputs.nixpkgs-f2k.overlays.window-managers
+              ];
+            }
           ];
         };
       homeManagerModules = import ./modules/home-manager;
