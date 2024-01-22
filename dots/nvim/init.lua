@@ -1,13 +1,3 @@
----@class BootstrapOptions
----@field ref string? Git ref to checkout
----@field name string? Name of the plugin
----@field path string? Path to clone to
----@field adjust_rtp boolean? Whether to adjust the runtimepath
-
---- Bootstraps a plugin by cloning it into the data dir
----@param url string Git URL to clone
----@param opts BootstrapOptions Options
----@return string path path to the installed plugin
 local function bootstrap(url, opts)
   local name = opts.name or url:gsub(".*/(.+)%.git", "%1") or url:gsub(".*/", "")
   local path = opts.path or (vim.fn.stdpath("data") .. "/lazy/" .. name)
@@ -37,21 +27,23 @@ bootstrap("https://github.com/udayvir-singh/tangerine.nvim.git", { ref = "v2.8",
 bootstrap("https://github.com/udayvir-singh/hibiscus.nvim.git", { ref = "v1.7", adjust_rtp = true })
 
 -- vim.opt.rtp:prepend(lazy_path)
-_G.fennel_target_dir = vim.fn.stdpath "data" .. "/tangerine"
+
+local fennel_target_dir = vim.fn.stdpath "data" .. "/luatarget"
 local data_dir = vim.fn.stdpath [[data]]
 local nvim_dir = vim.fn.stdpath [[config]]
+
 require("tangerine").setup {
   vimrc   = nvim_dir .. "/init.fnl",
-  source  = nvim_dir .. "/fnl",
-  target  = _G.fennel_target_dir,
+  source  = nvim_dir,
+  target  = fennel_target_dir,
 
   rtpdirs = {
-      "fnl/ftplugin"
+    "ftplugin"
   },
 
   compiler = {
     verbose = false,
-    hooks = { "oninit" }
+    hooks = { "oninit" },
   },
   keymaps = {
     eval_buffer = "<Nop>",
@@ -59,6 +51,4 @@ require("tangerine").setup {
     goto_output = "<Nop>"
   }
 }
-
-vim.opt.rtp:prepend (_G.fennel_target_dir .. "/ftplugin")
 

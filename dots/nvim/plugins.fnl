@@ -16,9 +16,9 @@
   `(sparse ,subject & ,...))
 
 (macro with-plug [[binder plugin] & body]
-  `(fn []
-     (let [,binder (require ,plugin)]
-       ,(unpack body))))
+   `(fn []
+      (let [,binder (require ,plugin)]
+        ,(unpack body))))
 
 [ :udayvir-singh/tangerine.nvim ; fennel
 
@@ -43,13 +43,18 @@
 
   ;; language tools
   :nvim-treesitter/nvim-treesitter
+  (opts :julienvincent/nvim-paredit
+        :config (require :plugins.nvim-paredit))
+  (opts :julienvincent/nvim-paredit-fennel
+        :dependencies [ :julienvincent/nvim-paredit ]
+        :ft [ :fennel ]
+        :config (fn [] ((. (require :nvim-paredit-fennel) :setup))))
 
   ;; vim-fu
   :jiangmiao/auto-pairs
-  (opts :ggandor/leap.nvim
-        :config (with-plug [p :leap] (p.create_default_mappings)))
+  :ggandor/leap.nvim
   (opts :kylechui/nvim-surround
         :config true)
-  :tpope/vim-commentary]
-
+  :tpope/vim-commentary
+]
 

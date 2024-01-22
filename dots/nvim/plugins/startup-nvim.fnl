@@ -26,7 +26,8 @@
         :command-palette
           { :type           :mapping
             :content     
-              [ [ " Find File"     "Telescope find_files"    "<leader>ff" ]
+              [ [ "New File"        "enew"                    "e" ]
+                [ " Find File"     "Telescope find_files"    "<leader>ff" ]
                 [ "󰍉 Grep Files"    "Telescope live_greps"    "<leader>lg" ]
                 [ " File Browser"  "Telescope file_browser"  "<leader>fb" ]
               ]

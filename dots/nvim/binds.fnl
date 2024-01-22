@@ -61,3 +61,14 @@
         ((. (require :nvim-window) :pick)))
       "view jump to window options")
 
+;; leap.nvim
+(map! [n] :s
+      "<Plug>(leap-forward)"
+      "leap forward")
+(map! [n] :S
+      "<Plug>(leap-backward)"
+      "leap backward")
+(map! [n] :gs
+      "<Plug>(leap-from-window)"
+      "leap into window")
+

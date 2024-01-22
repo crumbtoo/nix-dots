@@ -15,9 +15,10 @@
     # change these to use `mkOutOfStoreSymlink` for fast updates, e.g.
     #       "nvim".source = config.lib.file.mkOutOfStoreSymlink /home/crumb/nixos/dots/nvim-nfnl;
 
-    "awesome".source = ../../dots/awesome-kanagawa;
+    # "awesome".source = ../../dots/awesome-kanagawa;
     # "nvim".source = ../../dots/nvim;
-    "nvim".source = config.lib.file.mkOutOfStoreSymlink /home/crumb/nixos/dots/nvim-nfnl;
+    "awesome".source = config.lib.file.mkOutOfStoreSymlink /home/crumb/nixos/dots/awesome-kanagawa;
+    "nvim".source = config.lib.file.mkOutOfStoreSymlink /home/crumb/nixos/dots/nvim;
   };
 
   home.sessionVariables = {
