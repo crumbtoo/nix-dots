@@ -15,9 +15,9 @@
   (naughty.notify {:text text}))
 
 (require :awful.autofocus)
-(require :awful.hotkeys_popup.keys)
+; (require :awful.hotkeys_popup.keys)
 (require :theme)
-(require :signal)
+(require :signals)
 (require :binds)
-(require :config.rules)	
+; (require :config.rules)	
 

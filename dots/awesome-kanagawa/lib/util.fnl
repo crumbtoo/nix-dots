@@ -1,6 +1,9 @@
-(fn rel-require [m]
-  `(require (.. ... ("." .. ,m))))
+(local gears            (require :gears))
 
-{ : rel-require
+(fn rrect [rad]
+  (fn [cr w h]
+    (gears.shape.rounded_rect cr w h rad)))
+
+{ : rrect
 }
 

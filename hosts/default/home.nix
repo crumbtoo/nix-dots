@@ -43,8 +43,8 @@
     discord
     lazygit
     luajitPackages.fennel
-    luajitPackages.readline
-    readline
+    fira-code-nerdfont
+    victor-mono
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the

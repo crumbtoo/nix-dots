@@ -1,6 +1,4 @@
-(import-macros util :lib.util)
-
-{ :global (util.rel-require :global)
-  :client (util.rel-require :client)
+{ :global (require :binds.global)
+  :client (require :binds.client)
 }
 

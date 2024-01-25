@@ -49,6 +49,9 @@
         :dependencies [ :julienvincent/nvim-paredit ]
         :ft [ :fennel ]
         :config (fn [] ((. (require :nvim-paredit-fennel) :setup))))
+  (opts :Olical/conjure
+        :init (fn []
+                (tset vim.g "conjure#filetype#fennel" :conjure.client.fennel.stdio)))
 
   ;; vim-fu
   :jiangmiao/auto-pairs

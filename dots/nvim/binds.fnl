@@ -61,6 +61,14 @@
         ((. (require :nvim-window) :pick)))
       "view jump to window options")
 
+(map! [nxo] :#
+      :<Plug>Commentary
+      "comment <motion>")
+
+(map! [n] :##
+      :<Plug>CommentaryLine
+      "comment current line")
+
 ;; leap.nvim
 (map! [n] :s
       "<Plug>(leap-forward)"
