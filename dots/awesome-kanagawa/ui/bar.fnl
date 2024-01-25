@@ -77,6 +77,13 @@
       :valign   :center
       :widget   wibox.widget.textclock }))
 
+(fn task-list [s]
+  (wgt
+    { :screen       s
+      :filter       awful.widget.tasklist.filter.currenttags
+      :layout       wibox.layout.align.vertical
+    }))
+
 (fn [s]
   (awful.wibar
     { :position     :left
@@ -91,12 +98,7 @@
           { :layout wibox.layout.align.vertical
           }
           (empanel (taglist s))
-          (wgt
-            { :widget wibox.widget.textbox
-              :halign :center
-              :valign :center
-              :text "hi"
-            })
+          (task-list s)
           (empanel text-clock))
     }))
 
