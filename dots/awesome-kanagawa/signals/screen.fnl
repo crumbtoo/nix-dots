@@ -11,8 +11,7 @@
         :widget { :widget                 wibox.widget.imagebox
                   :image                  beautiful.wallpaper
                   :horizontal_fit_policy :fit
-                  :vertical_fit_policy   :fit }
-      })))
+                  :vertical_fit_policy   :fit } })))
 
 (screen.connect_signal :request::desktop_decoration
   (let [tags [:0 :1 :2 :3 :4 :5 :6 :7 :8 :9]]

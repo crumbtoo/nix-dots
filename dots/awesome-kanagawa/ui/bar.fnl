@@ -69,6 +69,14 @@
               :widget wibox.widget.textbox }))
       })))
 
+(local text-clock
+  (wibox.widget
+    { :format   "%H\n%M"
+      :font     beautiful.textclock_font
+      :halign   :center
+      :valign   :center
+      :widget   wibox.widget.textclock }))
+
 (fn [s]
   (awful.wibar
     { :position     :left
@@ -89,6 +97,6 @@
               :valign :center
               :text "hi"
             })
-          (empanel (bottom-widgets s)))
+          (empanel text-clock))
     }))
 

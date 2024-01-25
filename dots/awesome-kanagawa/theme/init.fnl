@@ -11,7 +11,8 @@
 (local troot (.. (os.getenv :HOME) :/.config/awesome/theme))
 
 (fn primary-font [size]
-  (string.format "FiraMono Nerd Font %d" size))
+  ; (string.format "FiraMono Nerd Font %d" size))
+  (string.format "VictorMono Nerd Font %d" size))
 
 (fn rel [path]
   (.. troot path))
@@ -69,6 +70,9 @@
     :tag_icon_focus               "⊗"
     :tag_icon_focus_opacity       1
     :tag_icon_unfocus_opacity     0.5
+
+    ;; text clock
+    :textclock_font               (primary-font 14)
 
     ;; tasklist
     :tasklist_bg_normal           :#00000000
