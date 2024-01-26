@@ -69,6 +69,10 @@
       :<Plug>CommentaryLine
       "comment current line")
 
+(map! [xn] :ga
+      "<Plug>(EasyAlign)"
+      "start easy-align command")
+
 ;; leap.nvim
 (map! [n] :s
       "<Plug>(leap-forward)"

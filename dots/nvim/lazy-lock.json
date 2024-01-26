@@ -1,8 +1,7 @@
 {
   "auto-pairs": { "branch": "master", "commit": "39f06b873a8449af8ff6a3eee716d3da14d63a76" },
-  "conjure": { "branch": "master", "commit": "4880144f13a7693cded529b302de491bfbaedbd6" },
+  "cheatsheet.nvim": { "branch": "master", "commit": "9716f9aaa94dd1fd6ce59b5aae0e5f25e2a463ef" },
   "indent-blankline.nvim": { "branch": "master", "commit": "12e92044d313c54c438bd786d11684c88f6f78cd" },
-  "iron.nvim": { "branch": "master", "commit": "7f876ee3e1f4ea1e5284b1b697cdad5b256e8046" },
   "kanagawa.nvim": { "branch": "master", "commit": "c19b9023842697ec92caf72cd3599f7dd7be4456" },
   "lazy.nvim": { "branch": "main", "commit": "17d9c93943c692e084dbf203e47e7fa122386d0f" },
   "leap.nvim": { "branch": "main", "commit": "9f7cf0a87ca2c3f47df37ef6787d34a65604d248" },
@@ -18,5 +17,6 @@
   "tangerine.nvim": { "branch": "master", "commit": "860a105de4f38001d5526cf78e930b45cb14bfd2" },
   "telescope.nvim": { "branch": "master", "commit": "0902bb39ebaf76e655addc65130eb79b29abe6d2" },
   "toggleterm.nvim": { "branch": "main", "commit": "e3805fed94d487b81e9c21548535cc820f62f840" },
-  "vim-commentary": { "branch": "master", "commit": "f67e3e67ea516755005e6cccb178bc8439c6d402" }
+  "vim-commentary": { "branch": "master", "commit": "f67e3e67ea516755005e6cccb178bc8439c6d402" },
+  "vim-easy-align": { "branch": "master", "commit": "12dd6316974f71ce333e360c0260b4e1f81169c3" }
 }

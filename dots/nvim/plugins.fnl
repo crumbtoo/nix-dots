@@ -35,11 +35,9 @@
         :config (require :plugins.toggleterm))
   (opts :nvim-tree/nvim-tree.lua
         :config (require :plugins.nvim-tree))
-  (opts :Vigemus/iron.nvim
-        :config (require :plugins.iron))
   (opts :lukas-reineke/indent-blankline.nvim
         :main :ibl
-        :opts { :scope {:enabled false}})
+        :opts { :scope {:enabled false} })
 
   ;; language tools
   :nvim-treesitter/nvim-treesitter
@@ -49,9 +47,15 @@
         :dependencies [ :julienvincent/nvim-paredit ]
         :ft [ :fennel ]
         :config (fn [] ((. (require :nvim-paredit-fennel) :setup))))
-  (opts :Olical/conjure
-        :init (fn []
-                (tset vim.g "conjure#filetype#fennel" :conjure.client.fennel.stdio)))
+  ; (opts :Olical/conjure
+  ;       :init (fn []
+  ;               (tset vim.g "conjure#filetype#fennel" :conjure.client.fennel.stdio)))
+  ; (opts :Vigemus/iron.nvim
+  ;       :config (require :plugins.iron))
+  (opts :sudormrfbin/cheatsheet.nvim
+        :main :cheatsheet
+        :opts (require :plugins.cheatsheet))
+  :junegunn/vim-easy-align
 
   ;; vim-fu
   :jiangmiao/auto-pairs
