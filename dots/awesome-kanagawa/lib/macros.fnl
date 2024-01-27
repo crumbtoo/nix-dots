@@ -28,6 +28,7 @@
         :shift      :Shift
         :ctrl       :Control
         :mod        :Mod4
+        :alt        :Mod1
         _           (assert-compile false
                       "unrecognised modifier name"
                       m)))
@@ -39,10 +40,36 @@
 (fn btn [mods m f]
   `(awful.button ,(unname-mods mods) ,(unname-btn m) ,f))
 
+(fn key [opts]
+  (let [{: mods : key : press : release : data } opts]
+    `(awful.key ,(unname-mods mods) ,key ,press ,release ,data)))
+
+(fn key* [[mods key press release data]]
+  `(awful.key ,(unname-mods mods) ,key ,press ,release ,data))
+
+; TODO: group syntax:
+; (mk-client-mappings!
+;   (group :client
+;     [[:mod] :f (fn [] dotdotdot)])
+;     [[] :w (fn [] dotdotdot)]
+;   (group :tag
+;     dotdotdot))
+
+(fn mk-client-mappings! [...]
+  `(awful.keyboard.append_client_keybindings
+     ,(->> [...]
+           (fun.map key*)
+           (fun.totable))))
+
+; (fn modify [x f]
+;   `(set ,x (,f ,x)))
+
 { : rel-require
   : wgt
   : unname-btn
   : unname-mod
   : btn
+  : mk-client-mappings!
+  ; : modify
 }
 
