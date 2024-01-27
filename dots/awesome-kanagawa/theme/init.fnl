@@ -17,6 +17,12 @@
 (fn rel [path]
   (.. troot path))
 
+(macro xy-margins [x y]
+  '{ :top    ,y
+     :bottom ,y
+     :left   ,x
+     :right  ,x })
+
 (beautiful.init
   {
     ;; common
@@ -78,6 +84,9 @@
     :tasklist_bg_normal           :#00000000
     :tasklist_bg_focus            kana.old-white
     :tasklist_shape_focus         (util.rrect 6)
+    :tasklist_margins             (xy-margins 4 8)
+    :tasklist_icon_margins        (xy-margins 0 2)
+    :tasklist_spacing             8
 
     ;; menu
     :menu_font      (primary-font 8)

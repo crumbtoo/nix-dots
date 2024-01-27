@@ -28,6 +28,14 @@
       ":Telescope find_files<CR>"
       "search files")
 
+(map! [n] :<leader>?
+      ":<C-U>Cheatsheet<CR>"
+      "view cheatsheet in telescope")
+
+(map! [n] :<localleader>?
+      ":<C-U>Cheatsheet!<CR>"
+      "edit cheatsheet")
+
 ;; toggleterm
 (map! [n :silent] :<leader>t "<Cmd>exe v:count1 . \"ToggleTerm\"<CR>"
       "toggle shell window")

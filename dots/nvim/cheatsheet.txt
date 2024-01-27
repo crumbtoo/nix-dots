@@ -30,3 +30,8 @@ In top level form             | iF
 Around element                | ae
 In Element                    | ie
 
+Wrap element insert head | <localleader>w
+Wrap element insert tail | <localleader>W
+Wrap form insert head    | <localleader>i
+Wrap form insert tail    | <localleader>I
+

@@ -63,5 +63,8 @@
   (opts :kylechui/nvim-surround
         :config true)
   :tpope/vim-commentary
+
+  ;; misc
+  :nathom/filetype.nvim
 ]
 

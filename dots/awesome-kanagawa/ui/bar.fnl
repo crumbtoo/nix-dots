@@ -1,6 +1,8 @@
+(local gears        (require :gears))
 (local awful        (require :awful))
 (local beautiful    (require :beautiful))
 (local wibox        (require :wibox))
+(local util         (require :lib.util))
 (import-macros {: wgt : btn} :lib.macros)
 
 (fn top-widgets [s]
@@ -77,12 +79,22 @@
       :valign   :center
       :widget   wibox.widget.textclock }))
 
-(fn task-list [s]
+(fn tasklist [s]
   (wgt
-    { :screen       s
-      :filter       awful.widget.tasklist.filter.currenttags
-      :layout       wibox.layout.align.vertical
-    }))
+    { :widget wibox.container.margin
+      :margins beautiful.tasklist_margins}
+    (awful.widget.tasklist
+      { :filter awful.widget.tasklist.filter.currenttags
+        :layout { :layout wibox.layout.fixed.vertical
+                  :spacing beautiful.tasklist_spacing }
+        :screen s
+        :widget_template
+          (wgt
+            { :widget wibox.container.margin
+              :margins beautiful.tasklist_icon_margins }
+            (wgt
+              { :id :icon_role
+                :widget wibox.widget.imagebox })) })))
 
 (fn [s]
   (awful.wibar
@@ -98,7 +110,7 @@
           { :layout wibox.layout.align.vertical
           }
           (empanel (taglist s))
-          (task-list s)
+          (tasklist s)
           (empanel text-clock))
     }))
 

@@ -19,6 +19,7 @@
     # "nvim".source = ../../dots/nvim;
     "awesome".source = config.lib.file.mkOutOfStoreSymlink /home/crumb/nixos/dots/awesome-kanagawa;
     "nvim".source = config.lib.file.mkOutOfStoreSymlink /home/crumb/nixos/dots/nvim;
+    "wezterm".source = config.lib.file.mkOutOfStoreSymlink /home/crumb/nixos/dots/wezterm;
   };
 
   home.sessionVariables = {
@@ -45,6 +46,7 @@
     luajitPackages.fennel
     fira-code-nerdfont
     victor-mono
+    wezterm
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
