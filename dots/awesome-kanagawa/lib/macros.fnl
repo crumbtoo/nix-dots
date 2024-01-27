@@ -40,6 +40,9 @@
 (fn btn [mods m f]
   `(awful.button ,(unname-mods mods) ,(unname-btn m) ,f))
 
+(fn btn* [[mods m f]]
+  `(awful.button ,(unname-mods mods) ,(unname-btn m) ,f))
+
 (fn key [opts]
   (let [{: mods : key : press : release : data } opts]
     `(awful.key ,(unname-mods mods) ,key ,press ,release ,data)))
@@ -55,10 +58,16 @@
 ;   (group :tag
 ;     dotdotdot))
 
-(fn mk-client-mappings! [...]
+(fn mk-client-keys! [...]
   `(awful.keyboard.append_client_keybindings
      ,(->> [...]
            (fun.map key*)
+           (fun.totable))))
+
+(fn mk-client-buttons! [...]
+  `(awful.mouse.append_client_mousebindings
+     ,(->> [...]
+           (fun.map btn*)
            (fun.totable))))
 
 ; (fn modify [x f]
@@ -69,7 +78,8 @@
   : unname-btn
   : unname-mod
   : btn
-  : mk-client-mappings!
+  : mk-client-keys!
+  : mk-client-buttons!
   ; : modify
 }
 
