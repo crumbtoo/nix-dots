@@ -5,8 +5,13 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-f2k.url = "github:fortuneteller2k/nixpkgs-f2k";
 
+    nix-darwin = {
+      url = "flake:nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "flake:home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
