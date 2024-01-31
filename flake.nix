@@ -41,9 +41,26 @@
       darwinConfigurations = {
         fruitbook = import ./hosts/fruitbook/configuration.nix flakeContext;
       };
-      homeConfigurations = {
-        crumble = import ./users/crumble/home.nix flakeContext;
-      };
+
+      homeConfigurations.crumble =
+        let
+          homeModule = { config, lib, pkgs, ... }@args: {
+            config = import ./users/crumble/home.nix args;
+          };
+          nixosModule = { ... }: {
+            home-manager.users.crumble = homeModule;
+          };
+        in
+        (
+          (
+            inputs.home-manager.lib.homeManagerConfiguration {
+              modules = [
+                homeModule
+              ];
+              pkgs = inputs.nixpkgs.legacyPackages.x86_64-darwin;
+            }
+          ) // { inherit nixosModule; }
+        );
 
       homeManagerModules = import ./modules/home-manager;
     };
