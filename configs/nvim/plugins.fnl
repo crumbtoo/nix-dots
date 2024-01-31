@@ -56,11 +56,13 @@
         :main :cheatsheet
         :opts (require :plugins.cheatsheet))
   :junegunn/vim-easy-align
-  (opts :lervag/vimtex
-        :config #(require :plugins.vimtex))
+  ; (opts :lervag/vimtex
+  ;       :config #(require :plugins.vimtex))
 
   ;;; vim-fu
-  :jiangmiao/auto-pairs
+  (opts :windwp/nvim-autopairs
+        :config #(require :plugins.autopairs))
+  ; :jiangmiao/auto-pairs
   :ggandor/leap.nvim
   (opts :kylechui/nvim-surround
         :config true)
@@ -69,12 +71,12 @@
         ; :build "make install_jsregexp"
         :version :v2.2
         :config
-          (fn [f]
+          (fn []
             (let [ls (require :luasnip.loaders.from_lua)
-                  data (.. (vim.fn.stdpath :data) :/luatarget/snippets/)]
+                  data (.. (vim.fn.stdpath :data) :/luatarget/snippets)]
               (ls.load { :paths data }))))
 
   ;;; misc
-  :nathom/filetype.nvim
+  ; :nathom/filetype.nvim
 ]
 

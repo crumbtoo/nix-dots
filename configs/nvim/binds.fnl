@@ -83,7 +83,10 @@
 
 ;; luasnip
 (let [ls (require :luasnip)
-      t  #(vim.api.nvim_replace_termcodes $ true true true)]
+      t  #(vim.api.nvim_feedkeys
+            (vim.api.nvim_replace_termcodes $ true true true)
+            :n
+            false)]
      (map! [i :silent] :<Tab>
            (fn []
              (if (ls.expand_or_jumpable)
@@ -93,15 +96,27 @@
      (map! [s :silent] :<Tab>
            (fn []
              (if (ls.jumpable 1)
-                 (ls.jump_next)
+                 (ls.jump 1)
                  (t :<Tab>)))
            "jump to next snippet")
      (map! [si :silent] :<S-Tab>
            (fn []
              (if (ls.jumpable -1)
-                 (ls.jump_prev)
+                 (ls.jump -1)
                  (t :<S-Tab>)))
-           "jump to previous snippet"))
+           "jump to previous snippet")
+     (map! [si :silent] :<C-n>
+           (fn []
+             (if (ls.choice_active)
+                 (ls.change_choice 1)
+                 (t :<C-n>)))
+           "next choice")
+     (map! [si :silent] :<C-S-n>
+           (fn []
+             (if (ls.choice_active)
+                 (ls.change_choice -1)
+                 (t :<C-S-n>)))
+           "previous choice"))
 
 ;; leap.nvim
 (map! [n] :s
