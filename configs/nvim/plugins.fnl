@@ -56,8 +56,8 @@
         :main :cheatsheet
         :opts (require :plugins.cheatsheet))
   :junegunn/vim-easy-align
-  ; (opts :lervag/vimtex
-  ;       :config #(require :plugins.vimtex))
+  (opts :lervag/vimtex
+        :config #(require :plugins.vimtex))
 
   ;;; vim-fu
   (opts :windwp/nvim-autopairs
@@ -77,6 +77,6 @@
               (ls.load { :paths data }))))
 
   ;;; misc
-  ; :nathom/filetype.nvim
+  :nathom/filetype.nvim
 ]
 
