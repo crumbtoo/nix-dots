@@ -11,24 +11,35 @@
     };
   };
 
-  outputs = { self, nixpkgs, ... }@inputs:
-   let
+  outputs = { self, nixpkgs, nix-darwin, ... }@inputs:
+    let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
+      flakeContext = {
+        inherit inputs;
+      };
     in
     {
       nixosConfigurations.default = nixpkgs.lib.nixosSystem {
-          specialArgs = {inherit inputs;};
-          modules = [ 
-            ./hosts/default/configuration.nix
-            inputs.home-manager.nixosModules.default
-            {
-              nixpkgs.overlays = [
-                inputs.nixpkgs-f2k.overlays.window-managers
-              ];
-            }
-          ];
-        };
+        specialArgs = {inherit inputs;};
+        modules = [ 
+          ./hosts/default/configuration.nix
+          inputs.home-manager.nixosModules.default
+          {
+            nixpkgs.overlays = [
+              inputs.nixpkgs-f2k.overlays.window-managers
+            ];
+          }
+        ];
+      };
+
+      darwinConfigurations = {
+        fruitbook = import ./hosts/fruitbook/configuration.nix flakeContext;
+      };
+      homeConfigurations = {
+        crumble = import ./users/crumble/home.nix flakeContext;
+      };
+
       homeManagerModules = import ./modules/home-manager;
     };
 }
