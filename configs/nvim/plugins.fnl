@@ -22,7 +22,7 @@
 
 [ :udayvir-singh/tangerine.nvim ; fennel
 
-  ;; themes / ui
+  ;;; themes / ui
   :rebelot/kanagawa.nvim
   (opts :nvim-lualine/lualine.nvim
         :config (require :plugins.lualine))
@@ -39,14 +39,14 @@
         :main :ibl
         :opts { :scope {:enabled false} })
 
-  ;; language tools
+  ;;; language tools
   :nvim-treesitter/nvim-treesitter
   (opts :julienvincent/nvim-paredit
         :config (require :plugins.nvim-paredit))
   (opts :julienvincent/nvim-paredit-fennel
         :dependencies [ :julienvincent/nvim-paredit ]
         :ft [ :fennel ]
-        :config (fn [] ((. (require :nvim-paredit-fennel) :setup))))
+        :config #(: (require :nvim-paredit-fennel) :setup))
   ; (opts :Olical/conjure
   ;       :init (fn []
   ;               (tset vim.g "conjure#filetype#fennel" :conjure.client.fennel.stdio)))
@@ -56,15 +56,25 @@
         :main :cheatsheet
         :opts (require :plugins.cheatsheet))
   :junegunn/vim-easy-align
+  (opts :lervag/vimtex
+        :config #(require :plugins.vimtex))
 
-  ;; vim-fu
+  ;;; vim-fu
   :jiangmiao/auto-pairs
   :ggandor/leap.nvim
   (opts :kylechui/nvim-surround
         :config true)
   :tpope/vim-commentary
+  (opts :L3MON4D3/LuaSnip
+        ; :build "make install_jsregexp"
+        :version :v2.2
+        :config
+          (fn [f]
+            (let [ls (require :luasnip.loaders.from_lua)
+                  data (.. (vim.fn.stdpath :data) :/luatarget/snippets/)]
+              (ls.load { :paths data }))))
 
-  ;; misc
+  ;;; misc
   :nathom/filetype.nvim
 ]
 

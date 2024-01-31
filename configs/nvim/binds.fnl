@@ -57,12 +57,12 @@
 
 ;;; vim-fu
 
-(map! [n :silent] :<C-i>
+(map! [n :silent] :<leader><C-i>
       (fn []
         (let [ln (vim.fn.line ".")]
           (vim.fn.append ln vim.b.rulestring)
-          (vim.api.nvim_feedkeys "0j" "n" true)))
-      "insert rule comment")
+          (vim.api.nvim_feedkeys :0j :n true)))
+      "insert hrule comment")
 
 (map! [n :silent] :<leader>w
       (fn []
@@ -80,6 +80,28 @@
 (map! [xn] :ga
       "<Plug>(EasyAlign)"
       "start easy-align command")
+
+;; luasnip
+(let [ls (require :luasnip)
+      t  #(vim.api.nvim_replace_termcodes $ true true true)]
+     (map! [i :silent] :<Tab>
+           (fn []
+             (if (ls.expand_or_jumpable)
+                 (ls.expand_or_jump)
+                 (t :<Tab>)))
+           "expand or jump to snippet")
+     (map! [s :silent] :<Tab>
+           (fn []
+             (if (ls.jumpable 1)
+                 (ls.jump_next)
+                 (t :<Tab>)))
+           "jump to next snippet")
+     (map! [si :silent] :<S-Tab>
+           (fn []
+             (if (ls.jumpable -1)
+                 (ls.jump_prev)
+                 (t :<S-Tab>)))
+           "jump to previous snippet"))
 
 ;; leap.nvim
 (map! [n] :s

@@ -30,7 +30,8 @@
 ;;; filetype
 (exec!
   [filetype on]
-  [filetype plugin on])
+  [filetype plugin indent on]
+  [syntax enable])
 
 ;;; control
 (set! timeoutlen 500) ; timeout multi-key commands after 500ms

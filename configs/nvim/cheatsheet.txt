@@ -1,4 +1,4 @@
-## nvim-paredit @parens @lisp
+## paredit @parens @lisp
 Splice sexp                   | <localleader>@
 Slurp forwards                | >)
 Barf backwards                | >(
@@ -34,4 +34,8 @@ Wrap element insert head | <localleader>w
 Wrap element insert tail | <localleader>W
 Wrap form insert head    | <localleader>i
 Wrap form insert tail    | <localleader>I
+
+## LaTeX @math @tex
+Custom environment | \newenvironment{envname} {open} {close}
+Custom command     | \newenvironment{\cmdname}[argc]{body. arg1: #1}
 
