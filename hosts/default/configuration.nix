@@ -171,7 +171,7 @@
   home-manager = {
     extraSpecialArgs = { inherit inputs; };
     users = {
-      "crumb" = import ./home.nix;
+      "crumb" = import ../../users/crumb/home.nix;
     };
   };
 }
