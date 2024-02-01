@@ -14,7 +14,7 @@
 
 (let [p (require :nvim-treesitter.configs)]
   (p.setup
-    { :ensure_installed [ :fennel ]
+    { :ensure_installed [ :haskell :fennel ]
       :highlight
         { :enable true
         }
