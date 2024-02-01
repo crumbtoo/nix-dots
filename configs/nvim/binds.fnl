@@ -78,6 +78,11 @@
       ":Telescope hoogle<CR>"
       "search hoogle")
 
+;;; language tools
+(map! [n] :K
+      #(vim.lsp.buf.hover)
+      "lsp hover")
+
 ;;; vim-fu
 
 (map! [n :silent] :<leader><C-i>
