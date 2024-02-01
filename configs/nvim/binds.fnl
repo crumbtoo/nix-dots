@@ -55,6 +55,24 @@
         (fn [] (lazygit:toggle)))
       "toggle lazygit window")
 
+;; iron.nvim
+(map! [n] :<leader>rr
+      :<cmd>IronRepl<CR>
+      "toggle iron repl")
+(map! [n] :<leader>R
+      "<cmd>IronSend :r<CR>"
+      "reload iron repl")
+(map! [n] :<leader>rf
+      "<cmd>IronFocus<CR>"
+      "focus iron repl")
+(map! [v] :<leader>sc
+      (fn []
+        (let [core (require :iron.core)]
+          (do (core.send nil ":{")
+              (core.visual_send)
+              (core.send nil ":}"))))
+      "send visual selection to repl")
+
 ;; telescope
 (map! [n] :<leader>H
       ":Telescope hoogle<CR>"

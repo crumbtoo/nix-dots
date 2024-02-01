@@ -17,6 +17,7 @@ let
         bash = {
           enable = true;
         };
+        zsh.enable = true;  # default shell on catalina
       };
       services = {
         dnsmasq = {

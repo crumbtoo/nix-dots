@@ -51,8 +51,8 @@
   ; (opts :Olical/conjure
   ;       :init (fn []
   ;               (tset vim.g "conjure#filetype#fennel" :conjure.client.fennel.stdio)))
-  ; (opts :Vigemus/iron.nvim
-  ;       :config (require :plugins.iron))
+  (opts :Vigemus/iron.nvim
+        :config #(require :plugins.iron))
   (opts :sudormrfbin/cheatsheet.nvim
         :main :cheatsheet
         :opts (require :plugins.cheatsheet))
@@ -66,6 +66,7 @@
   (opts :luc-tielen/telescope_hoogle
         :dependencies [ :nvim-telescope/telescope.nvim ]
         :config #((. (require :telescope) :load_extension) :hoogle))
+  (opts :MrcJkb/haskell-tools.nvim)
 
   ;;; vim-fu
   (opts :windwp/nvim-autopairs
