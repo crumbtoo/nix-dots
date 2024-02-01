@@ -39,3 +39,7 @@ Wrap form insert tail    | <localleader>I
 Custom environment | \newenvironment{envname} {open} {close}
 Custom command     | \newenvironment{\cmdname}[argc]{body. arg1: #1}
 
+## telescope hoogle @hoogle
+Open entry in browser   | <C-b>
+Copy entry to clipboard | <CR>
+

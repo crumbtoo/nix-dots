@@ -10,7 +10,7 @@
                     (fn [meta]
                       (let [filename (vim.api.nvim_buf_get_name
                                        meta.current_bufnr)]
-                        [:cabal :repl filename]))
+                        [:cabal :v2-repl filename]))
                 }
               :fennel
                 { :command [:fennel]

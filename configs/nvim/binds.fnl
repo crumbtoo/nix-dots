@@ -55,6 +55,11 @@
         (fn [] (lazygit:toggle)))
       "toggle lazygit window")
 
+;; telescope
+(map! [n] :<leader>H
+      ":Telescope hoogle<CR>"
+      "search hoogle")
+
 ;;; vim-fu
 
 (map! [n :silent] :<leader><C-i>

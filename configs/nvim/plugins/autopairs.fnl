@@ -5,6 +5,7 @@
 (npairs.setup
   { :check_ts false
     :enable_check_bracket_line false
+    :map_cr true
   })
 
 (macro ft-rules [fts ...]

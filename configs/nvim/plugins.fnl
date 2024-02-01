@@ -40,7 +40,8 @@
         :opts { :scope {:enabled false} })
 
   ;;; language tools
-  :nvim-treesitter/nvim-treesitter
+  (opts :nvim-treesitter/nvim-treesitter
+        :config #(require :plugins.treesitter))
   (opts :julienvincent/nvim-paredit
         :config (require :plugins.nvim-paredit))
   (opts :julienvincent/nvim-paredit-fennel
@@ -58,6 +59,13 @@
   :junegunn/vim-easy-align
   (opts :lervag/vimtex
         :config #(require :plugins.vimtex))
+  (opts :nvim-treesitter/nvim-treesitter-textobjects
+        :dependencies [ :nvim-treesitter/nvim-treesitter ]
+        :config #(require :plugins.treesitter-textobjects))
+  ;; haskell
+  (opts :luc-tielen/telescope_hoogle
+        :dependencies [ :nvim-telescope/telescope.nvim ]
+        :config #((. (require :telescope) :load_extension) :hoogle))
 
   ;;; vim-fu
   (opts :windwp/nvim-autopairs
