@@ -3,7 +3,7 @@
 (local ts-conds (require :nvim-autopairs.ts-conds))
 
 (npairs.setup
-  { :check_ts false
+  { :check_ts true
     :enable_check_bracket_line false
     :map_cr true
   })
