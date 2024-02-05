@@ -43,3 +43,7 @@ Custom command     | \newenvironment{\cmdname}[argc]{body. arg1: #1}
 Open entry in browser   | <C-b>
 Copy entry to clipboard | <CR>
 
+## fennel @language
+->  | Splice into first argument
+->> | Splice into last argument
+

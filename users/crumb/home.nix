@@ -7,7 +7,7 @@
   home.homeDirectory = "/home/crumb";
 
   imports = [
-    (import ./programs/zsh)
+    (import ../../configs/programs/zsh)
   ];
 
   # ~/.config
@@ -17,9 +17,9 @@
 
     # "awesome".source = ../../dots/awesome-kanagawa;
     # "nvim".source = ../../dots/nvim;
-    "awesome".source = config.lib.file.mkOutOfStoreSymlink /home/crumb/nixos/users/crumb/config/awesome-kanagawa;
-    "nvim".source = config.lib.file.mkOutOfStoreSymlink /home/crumb/nixos/users/crumb/config/nvim;
-    "wezterm".source = config.lib.file.mkOutOfStoreSymlink /home/crumb/nixos/users/crumb/config/wezterm;
+    "awesome".source = config.lib.file.mkOutOfStoreSymlink /home/crumb/nixos/configs/awesome-kanagawa;
+    "nvim".source = config.lib.file.mkOutOfStoreSymlink /home/crumb/nixos/configs/nvim;
+    "wezterm".source = config.lib.file.mkOutOfStoreSymlink /home/crumb/nixos/configs/wezterm;
   };
 
   home.sessionVariables = {

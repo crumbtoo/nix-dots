@@ -1,4 +1,4 @@
--- :fennel:1706666480
+-- :fennel:1706931067
 local utils = require("lib.utils")
 do end (vim.opt)["tabstop"] = 2
 vim.opt["shiftwidth"] = 2
