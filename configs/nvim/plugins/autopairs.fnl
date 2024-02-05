@@ -11,9 +11,6 @@
 (macro ft-rules [fts ...]
   `(->> ,fts ,...))
 
-; (tset (npairs.get_rules "`") 1 :not_filetypes
-;       [ :lisp :fennel ])
-
 ; remove '`' rule on lisp
 (-?> (npairs.get_rules "'")
      (tset 1 :not_filetypes [ :fennel :lisp ]))
