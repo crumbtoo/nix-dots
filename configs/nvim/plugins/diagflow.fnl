@@ -25,7 +25,7 @@
   :show_borders true
   :show_sign false
   :text_align :right
-  :toggle_event {}
+  :toggle_event [ :InsertEnter :InsertLeave ]
   :update_event [ :DiagnosticChanged
                   :BufReadPost ]
 }	
