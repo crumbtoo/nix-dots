@@ -63,6 +63,9 @@
   (opts :nvim-treesitter/nvim-treesitter-textobjects
         :dependencies [ :nvim-treesitter/nvim-treesitter ]
         :config #(require :plugins.treesitter-textobjects))
+  (opts :dgagn/diagflow.nvim
+        :event :LspAttach
+        :opts (require :plugins.diagflow))
   ;; haskell
   (opts :luc-tielen/telescope_hoogle
         :dependencies [ :nvim-telescope/telescope.nvim ]
