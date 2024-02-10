@@ -44,11 +44,12 @@ require("tangerine").setup {
   compiler = {
     verbose = false,
     hooks = { "oninit" },
-    adviser = function(fennel)
-      fennel["macro-path"] = fennel["macro-path"] .. ";" .. nvim_dir .. "/?.fnl"
-      return fennel
-    end
+    -- adviser = function(fennel)
+    --   fennel["macro-path"] = fennel["macro-path"] .. ";" .. nvim_dir .. "/?.fnl"
+    --   return fennel
+    -- end
   },
+  -- version = "latest",
   keymaps = {
     eval_buffer = "<Nop>",
     peek_buffer = "<Nop>",

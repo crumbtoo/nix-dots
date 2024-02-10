@@ -51,6 +51,7 @@
   ; (opts :Olical/conjure
   ;       :init (fn []
   ;               (tset vim.g "conjure#filetype#fennel" :conjure.client.fennel.stdio)))
+  (opts :jaawerth/fennel.vim)
   (opts :Vigemus/iron.nvim
         :config #(require :plugins.iron))
   (opts :sudormrfbin/cheatsheet.nvim
