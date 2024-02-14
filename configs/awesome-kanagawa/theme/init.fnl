@@ -18,7 +18,7 @@
   (.. troot path))
 
 (macro xy-margins [x y]
-  '{ :top    ,y
+  `{ :top    ,y
      :bottom ,y
      :left   ,x
      :right  ,x })

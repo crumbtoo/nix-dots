@@ -5,21 +5,6 @@
 (local util         (require :lib.util))
 (import-macros {: wgt : btn} :lib.macros)
 
-(fn top-widgets [s]
-  (wgt
-    { :layout wibox.layout.align.vertical }
-    (wibox.widget.textbox :top)))
-
-(fn middle-widgets [s]
-  (wgt
-    { :layout wibox.layout.align.vertical }
-    (wibox.widget.textbox :mid)))
-
-(fn bottom-widgets [s]
-  (wgt
-    { :layout wibox.layout.align.vertical }
-    (wibox.widget.textbox :bot)))
-
 (fn empanel [w]
   (wgt
     { :widget   wibox.container.background
@@ -82,7 +67,7 @@
 (fn tasklist [s]
   (wgt
     { :widget wibox.container.margin
-      :margins beautiful.tasklist_margins}
+      :margins beautiful.tasklist_margins }
     (awful.widget.tasklist
       { :filter awful.widget.tasklist.filter.currenttags
         :layout { :layout wibox.layout.fixed.vertical
@@ -94,7 +79,7 @@
               :margins beautiful.tasklist_icon_margins }
             (wgt
               { :id :icon_role
-                :widget wibox.widget.imagebox })) })))
+                :widget wibox.widget.imagebox }))})))
 
 (fn [s]
   (awful.wibar
@@ -103,11 +88,12 @@
       :stretch      false
       :height       beautiful.wibar_height
       :width        beautiful.wibar_width
-      :shape        beautiful.wibar_shape
+      :shape        (util.rrect 20)
       :margins      beautiful.wibar_margins 
       :widget
         (wgt
           { :layout wibox.layout.align.vertical
+            ; :shape        beautiful.wibar_shape
           }
           (empanel (taglist s))
           (tasklist s)

@@ -80,6 +80,24 @@
     };
   };
 
+  services.picom = {
+    settings = {
+      shadow = true;
+      shadow-radius = 40;
+      shadow-opacity = .55;
+      shadow-offset-x = -40;
+      shadow-offset-y = -20;
+      shadow-exclude = [
+        "_NET_WM_WINDOW_TYPE:a = '_NET_WM_WINDOW_TYPE_NOTIFICATION'"
+        "_NET_WM_STATE@:32a *= '_NET_WM_STATE_HIDDEN'"
+        "_GTK_FRAME_EXTENTS@:c"
+      ];
+      shadow-ignore-shaped = false;
+    };
+    enable = true;
+    backend = "glx";
+  };
+
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
@@ -99,6 +117,7 @@
     git
     gcc
     # inputs.nixpkgs-f2k.packages.${system}.awesome-luajit-git
+    picom-next
   ];
 
   nixpkgs.overlays = [
