@@ -2,7 +2,7 @@
 (local xresources       (require :beautiful.xresources))
 (local shp              (require :gears.shape))
 (local kana             (require :theme.kanagawa))
-(local util             (require :lib.util))
+(local autils           (require :lib.awesome-utils))
 (local gears            (require :gears))
 (local beautiful        (require :beautiful))
 
@@ -12,7 +12,7 @@
 
 (fn primary-font [size]
   ; (string.format "FiraMono Nerd Font %d" size))
-  (string.format "VictorMono Nerd Font %d" size))
+  (string.format "FiraMono %d" size))
 
 (fn rel [path]
   (.. troot path))
@@ -22,6 +22,9 @@
      :bottom ,y
      :left   ,x
      :right  ,x })
+
+(local *screen-height* 1440)
+(local *screen-width* 2560)
 
 (beautiful.init
   {
@@ -40,7 +43,7 @@
     ; :fg_urgent        :#ffffff
     ; :fg_minimize      :#ffffff
     :useless_gap      (dpi 4)
-    :border_width     (dpi 2)
+    :border_width     0
     :border_normal    kana.sumi-ink1
     :border_focus     kana.old-white
     ; :border_marked    :#91231c
@@ -48,15 +51,16 @@
     :wallpaper        (rel "/wallpaper.png")
 
     ;; wibar
-    :wibar_shape      (util.rrect 20)
+    ; :wibar_shape      (util.rrect 20)
     :wibar_width      30
-    :wibar_height     (dpi (* (/ 80 100) 1440))
-    :wibar_margins    { :top    0
-                        :bottom 0
-                        :left   (dpi 8) ; adjust for useless_gap
-                        :right  0 }
+    :wibar_height     *screen-height*
+    ; :wibar_margins    { :top    0
+    ;                     :bottom 0
+    ;                     :left   (dpi 8) ; adjust for useless_gap
+    ;                     :right  0 }
     ; :wibar_align      :centered
     ; :wibar_stretch    false
+    :wibar_padding    (xy-margins 0 8)
 
     ;; taglist
     :taglist_font                 (primary-font 18)
@@ -83,7 +87,7 @@
     ;; tasklist
     :tasklist_bg_normal           :#00000000
     :tasklist_bg_focus            kana.old-white
-    :tasklist_shape_focus         (util.rrect 6)
+    :tasklist_shape_focus         (autils.rrect 6)
     :tasklist_margins             (xy-margins 4 8)
     :tasklist_icon_margins        (xy-margins 0 2)
     :tasklist_spacing             8
@@ -124,7 +128,11 @@
 (let [nice (require :lib.nice)]
   (nice
     { :titlebar_height  19
-      :button_size      12
+      :button_size      10
+      :titlebar_items
+        { :left [:close :minimize :maximize]
+          :middle []
+          :right [:sticky :ontop :floating] }
     }))
 
 nil

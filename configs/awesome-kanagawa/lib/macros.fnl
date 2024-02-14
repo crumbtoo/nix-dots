@@ -1,24 +1,12 @@
-(local fun  (require "lib.fun"))
-; (local util (require "lib.util"))
+(local fun    (require :lib.fun))
+(local utils  (require :lib.util))
 
 (fn rel-require [m]
   `(require (.. ... ("." .. ,m))))
 
-; (fn merge [t u]
-;   (let [tbl { }]
-;     (each [k v (pairs t)] (tset tbl k v))
-;     (each [k v (pairs u)] (tset tbl k v))
-;     tbl))
-
-(fn merge [...]
-  (accumulate [merged { }
-               _ t (pairs [...])]
-    (collect [k v (pairs t) &into merged]
-      k v)))
-
 (fn wgt [prop ...]
   (if (table? prop)
-      (merge prop [...])
+      (utils.merge prop [...])
       `(let [util# (require :lib.util)
              wibox# (require :wibox)]
          (wibox#.widget (util#.merge ,prop ,[...])))))
@@ -89,6 +77,5 @@
   : btn
   : mk-client-keys!
   : mk-client-buttons!
-  ; : modify
 }
 

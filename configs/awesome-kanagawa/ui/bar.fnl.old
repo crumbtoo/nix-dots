@@ -5,6 +5,16 @@
 (local util         (require :lib.util))
 (import-macros {: wgt : btn} :lib.macros)
 
+(fn empanel [w]
+  (wgt
+    { :widget   wibox.container.background
+      :shape    beautiful.wibar_shape
+      :bg       beautiful.bg_panel }
+    (wgt
+      { :widget   wibox.container.margin
+        :margins  beautiful.empanel_margins }
+      w)))
+
 (fn taglist [s]
   (let [on-create
           (fn [self t index objs]
@@ -85,12 +95,15 @@
       :stretch      false
       :height       beautiful.wibar_height
       :width        beautiful.wibar_width
+      :shape        (util.rrect 20)
       :margins      beautiful.wibar_margins 
       :widget
         (wgt
-          { :layout wibox.layout.align.vertical } 
-          (taglist s)
+          { :layout wibox.layout.align.vertical
+            ; :shape        beautiful.wibar_shape
+          }
+          (empanel (taglist s))
           (tasklist s)
-          (wgt {:layout wibox.layout.fixed.vertical} text-clock (layout-box s)))
+          (empanel (wgt {:layout wibox.layout.fixed.vertical} text-clock (layout-box s) )))
     }))
 
