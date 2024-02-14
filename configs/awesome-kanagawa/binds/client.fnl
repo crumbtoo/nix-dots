@@ -7,8 +7,13 @@
 (client.connect_signal :request::default_keybindings
   (fn []
     (mk-client-keys!
-      [[ :mod ] :f #(doto $ (tset :fullscreen (not $.fullscreen))
-                            (: :raise))]
+      [[:mod]        :f #(doto $
+                           (tset :fullscreen (not $.fullscreen))
+                           (: :raise))
+                     "toggle fullscreen"]
+      [[:mod :shift] :q #($:kill)
+                     "kill client"]
+      [[:mod :shift] :space #(awful.client.floating.toggle)]
       )))
 
 ;; sloppy focus

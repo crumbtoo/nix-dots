@@ -102,5 +102,30 @@
 
     ;; textclock
     :textclock_font (primary-font 12)
+
+    :layout_fairh      (.. troot :/layouts/fairhw.png)
+    :layout_fairv      (.. troot :/layouts/fairvw.png)
+    :layout_floating   (.. troot :/layouts/floatingw.png)
+    :layout_magnifier  (.. troot :/layouts/magnifierw.png)
+    :layout_max        (.. troot :/layouts/maxw.png)
+    :layout_fullscreen (.. troot :/layouts/fullscreenw.png)
+    :layout_tilebottom (.. troot :/layouts/tilebottomw.png)
+    :layout_tileleft   (.. troot :/layouts/tileleftw.png)
+    :layout_tile       (.. troot :/layouts/tilew.png)
+    :layout_tiletop    (.. troot :/layouts/tiletopw.png)
+    :layout_spiral     (.. troot :/layouts/spiralw.png)
+    :layout_dwindle    (.. troot :/layouts/dwindlew.png)
+    :layout_cornernw   (.. troot :/layouts/cornernww.png)
+    :layout_cornerne   (.. troot :/layouts/cornernew.png)
+    :layout_cornersw   (.. troot :/layouts/cornersww.png)
+    :layout_cornerse   (.. troot :/layouts/cornersew.png)
   })
+
+(let [nice (require :lib.nice)]
+  (nice
+    { :titlebar_height  19
+      :button_size      12
+    }))
+
+nil
 

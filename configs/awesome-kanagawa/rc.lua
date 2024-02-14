@@ -7,8 +7,11 @@ local function oncwd(s)
 end
 
 fennel.install()
-fennel.path = oncwd("?/init.fnl;") .. oncwd("?.fnl;") .. fennel.path
+fennel.path = oncwd("?/init.fnl;") .. oncwd("?.fnl;")
+           .. fennel.path
 fennel["macro-path"] = oncwd("?.fnl;") .. fennel["macro-path"]
+
+package.path = oncwd("lib/?.lua;") .. package.path
 
 require "real-rc"
 

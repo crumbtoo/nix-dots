@@ -59,7 +59,8 @@
     `(awful.key ,(unname-mods mods) ,key ,press ,release ,data)))
 
 (fn key* [[mods key press release data]]
-  `(awful.key ,(unname-mods mods) ,key ,press ,release ,data))
+  (let [data* (if (= (type data) :string) {:description data} data)]
+    `(awful.key ,(unname-mods mods) ,key ,press ,release ,data*)))
 
 ; TODO: group syntax:
 ; (mk-client-mappings!

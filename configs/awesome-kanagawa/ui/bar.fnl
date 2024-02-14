@@ -81,6 +81,13 @@
               { :id :icon_role
                 :widget wibox.widget.imagebox }))})))
 
+(fn layout-box [s]
+  (awful.widget.layoutbox
+    { :screen s
+      :buttons [ (btn [] :lmb #(awful.layout.inc  1))
+                 (btn [] :rmb #(awful.layout.inc -1))
+               ]}))
+
 (fn [s]
   (awful.wibar
     { :position     :left
@@ -97,6 +104,6 @@
           }
           (empanel (taglist s))
           (tasklist s)
-          (empanel text-clock))
+          (empanel (wgt {:layout wibox.layout.fixed.vertical} text-clock (layout-box s) )))
     }))
 
