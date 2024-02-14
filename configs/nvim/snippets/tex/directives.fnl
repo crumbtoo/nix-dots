@@ -10,7 +10,7 @@
 ;; not say anything and just silently aborts loading the entire file.
 
 [ (s :tt
-     :\textt
+     :\texttt
      (fmta "\\texttt{<>}"
            [(i 1)]))
   (s :ff

@@ -51,6 +51,7 @@
   ; (opts :Olical/conjure
   ;       :init (fn []
   ;               (tset vim.g "conjure#filetype#fennel" :conjure.client.fennel.stdio)))
+  (opts :jaawerth/fennel.vim)
   (opts :Vigemus/iron.nvim
         :config #(require :plugins.iron))
   (opts :sudormrfbin/cheatsheet.nvim
@@ -62,6 +63,9 @@
   (opts :nvim-treesitter/nvim-treesitter-textobjects
         :dependencies [ :nvim-treesitter/nvim-treesitter ]
         :config #(require :plugins.treesitter-textobjects))
+  (opts :dgagn/diagflow.nvim
+        :event :LspAttach
+        :opts (require :plugins.diagflow))
   ;; haskell
   (opts :luc-tielen/telescope_hoogle
         :dependencies [ :nvim-telescope/telescope.nvim ]

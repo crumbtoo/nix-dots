@@ -1,10 +1,3 @@
-; (fn fix-opts [trig dscr extra]
-;   (let [opts (or (?. extra :opts) {})
-;         adv-opts (or (?. extra :adv-opts) {})]
-;     (tset opts :trig trig)
-;     (tset opts :dscr dscr)
-;     {: opts : adv-opts}))
-
 (fn fix-opts [trig dscr extra]
   (let [adv-opts (or (?. extra :adv-opts) {})
         opts     (or (?. extra :opts)     {})]
@@ -25,5 +18,26 @@
        (ls#.parser.parse_snippet
          ,opts ,body ,adv-opts))))
 
-{ : s : s* }
+(fn simple-env [trig desc env]
+  (let [s (string.format "\\begin{${2:%s}}\n\t$1\n\\end{${2:%s}}"
+                         env env)]
+    (s* trig desc s)))
+
+(fn choice-env [trig desc env]
+  (let [s (string.format "\\begin{${2|%s|}}\n\t$1\n\\end{${2|%s|}}"
+                         env env)]
+    (s* trig desc s)))
+
+(fn starred-env [trig desc env]
+  (let [env* (.. env "*")
+        s (string.format "\\begin{${2|%s,%s|}}\n\t$1\n\\end{$2}"
+                         env* env)]
+    (s* trig desc s)))
+
+{ : s
+  : s*
+  : simple-env
+  : choice-env
+  : starred-env
+}
 
