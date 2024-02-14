@@ -48,6 +48,9 @@
     :border_focus     kana.old-white
     ; :border_marked    :#91231c
 
+    :fg_select        :#ffffff80
+    :fg_unselect      :#ffffff00
+
     :wallpaper        (rel "/wallpaper.png")
 
     ;; wibar

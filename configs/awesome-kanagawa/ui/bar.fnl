@@ -3,14 +3,32 @@
 (local beautiful    (require :beautiful))
 (local wibox        (require :wibox))
 (local util         (require :lib.util))
+(local rubato       (require :lib.rubato))
+(local colour       (require :lib.color))
 (import-macros {: wgt : btn} :lib.macros)
 
+(fn hover-anim [])
+
 (fn taglist [s]
-  (let [on-create
+  (let [tagtrans (colour.transition (colour.color {:hex beautiful.fg_unselect})
+                                    (colour.color {:hex beautiful.fg_select}))
+        on-create
           (fn [self t index objs]
             ; TODO: change colour on urgent
             ; call on-update to correctly initialise icons
-            (self:update_callback t index objs))
+            (local taganim (rubato.timed
+                             { :duration 0.2
+                               :intro    0.1
+                               :subscribed (fn [pos] (when (not t.selected)
+                                              (set self.circ.bg (. (tagtrans pos) :hex)))) }))
+            (self.circ:connect_signal :mouse::enter
+              (fn []
+                (set taganim.target 1)))
+            (self.circ:connect_signal :mouse::leave
+              (fn []
+                (set taganim.target 0)))
+            (self:update_callback t index objs)
+            )
         on-update
           (fn [self t index objects]
             (let [ ir (. (self:get_children_by_id :tag_icon) 1)
@@ -39,11 +57,16 @@
             :shape  beautiful.taglist_shape
             :widget wibox.container.background }
           (wgt
-            { :id     :tag_icon
-              :font   beautiful.taglist_font
-              :halign :center
-              :valign :center
-              :widget wibox.widget.textbox }))
+            { :id     :circ
+              :widget wibox.container.background
+              :bg     beautiful.fg_unselect
+              :shape  gears.shape.circle }
+            (wgt
+              { :id     :tag_icon
+                :font   beautiful.taglist_font
+                :halign :center
+                :valign :center
+                :widget wibox.widget.textbox })))
       })))
 
 (local text-clock
