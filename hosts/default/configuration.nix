@@ -95,7 +95,7 @@
       shadow-ignore-shaped = false;
     };
     enable = true;
-    backend = "glx";
+    # backend = "glx";
   };
 
 

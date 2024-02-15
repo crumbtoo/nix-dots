@@ -11,17 +11,16 @@
 (local troot (.. (os.getenv :HOME) :/.config/awesome/theme))
 
 (fn primary-font [size]
-  ; (string.format "FiraMono Nerd Font %d" size))
   (string.format "FiraMono %d" size))
 
 (fn rel [path]
   (.. troot path))
 
 (macro xy-margins [x y]
-  `{ :top    ,y
-     :bottom ,y
-     :left   ,x
-     :right  ,x })
+  { :top    y
+    :bottom y
+    :left   x
+    :right  x })
 
 (local *screen-height* 1440)
 (local *screen-width* 2560)
@@ -57,13 +56,15 @@
     ; :wibar_shape      (util.rrect 20)
     :wibar_width      30
     :wibar_height     *screen-height*
+    :wibar_logo       (gears.color.recolor_image (.. troot :/icons/nix-logo.svg)
+                                                 kana.spring-blue)
     ; :wibar_margins    { :top    0
     ;                     :bottom 0
     ;                     :left   (dpi 8) ; adjust for useless_gap
     ;                     :right  0 }
     ; :wibar_align      :centered
     ; :wibar_stretch    false
-    :wibar_padding    (xy-margins 0 8)
+    :wibar_padding    (xy-margins 8 8)
 
     ;; taglist
     :taglist_font                 (primary-font 18)

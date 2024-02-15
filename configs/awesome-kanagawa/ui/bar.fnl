@@ -5,9 +5,8 @@
 (local util         (require :lib.util))
 (local rubato       (require :lib.rubato))
 (local colour       (require :lib.color))
+(local {: wgt*}     (require :lib.awesome-utils))
 (import-macros {: wgt : btn} :lib.macros)
-
-(fn hover-anim [])
 
 (fn taglist [s]
   (let [tagtrans (colour.transition (colour.color {:hex beautiful.fg_unselect})
@@ -101,6 +100,21 @@
                  (btn [] :rmb #(awful.layout.inc -1))
                ]}))
 
+(local nix-logo
+  (wibox.container.constraint
+    { :strategy :max
+      :widget
+      (wgt*
+        { :widget wibox.container.margin
+          :margins 4 }
+        (wgt
+          { :widget wibox.widget.imagebox
+            :halign :center
+            :valign :center
+            :resize true
+            :image beautiful.wibar_logo }))
+    }))
+
 (fn [s]
   (awful.wibar
     { :position     :left
@@ -108,12 +122,16 @@
       :stretch      false
       :height       beautiful.wibar_height
       :width        beautiful.wibar_width
-      :margins      beautiful.wibar_margins 
+      ; :margins      beautiful.wibar_margins 
       :widget
         (wgt
           { :layout wibox.layout.align.vertical } 
-          (taglist s)
+          (wgt {:layout wibox.layout.fixed.vertical}
+               nix-logo
+               (taglist s))
           (tasklist s)
-          (wgt {:layout wibox.layout.fixed.vertical} text-clock (layout-box s)))
+          (wgt {:layout wibox.layout.fixed.vertical}
+               text-clock
+               (layout-box s)))
     }))
 
