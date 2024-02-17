@@ -88,8 +88,7 @@
             (let [ls (require :luasnip.loaders.from_lua)
                   data (.. (vim.fn.stdpath :data) :/luatarget/snippets)]
               (ls.load { :paths data }))))
-
   ;;; misc
-  :nathom/filetype.nvim
+  :tpope/vim-fugitive
 ]
 

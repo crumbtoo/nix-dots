@@ -5,6 +5,9 @@
 (set vim.g.mapleader " ")
 (set vim.g.maplocalleader "  ")
 
+(map! [n :verbose] :<C-\> "/\\<\\><Left><Left>"
+      "search \\<word\\>")
+
 (map! [n :silent] :<space> ::nohl<CR>
       "hide highlighted text")
 
