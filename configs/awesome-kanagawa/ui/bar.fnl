@@ -14,23 +14,23 @@
       beautiful.tag_icon_focus_opacity
       beautiful.tag_icon_unfocus_opacity))
 
-(fn mk-hover-anim [self t]
-  (rubato.timed
+(macro mk-hover-anim [name t]
+  `(rubato.timed
     { :duration 0.2
       :intro    0.1
       :subscribed
-        #(set self.tag_icon.opacity $) }))
+        #(tset ,name :opacity $) }))
 
 (fn notify [s]
   (naughty.notify {:title s}))
 
-(fn mk-hooks []
+(local taglist-hooks
   (let [tagtrans (colour.transition (colour.color {:hex beautiful.fg_unselect})
                                     (colour.color {:hex beautiful.fg_select}))]
     { :on-create
         (fn [self t index objs]
           ; TODO: change colour on urgent
-          (set self.taganim (mk-hover-anim self t))
+          (set self.taganim (mk-hover-anim self.tag_icon t))
           (self.tag_icon:connect_signal
             :mouse::enter
             #(set self.taganim.target beautiful.tag_icon_hover_opacity))
@@ -53,7 +53,7 @@
     }))
 
 (fn taglist [s]
-  (let [ {: on-update : on-create} (mk-hooks) ]
+  (let [ {: on-update : on-create} taglist-hooks ]
     (awful.widget.taglist
       { :screen     s
         :filter     awful.widget.taglist.filter.all
@@ -102,11 +102,16 @@
                 :widget wibox.widget.imagebox }))})))
 
 (fn layout-box [s]
-  (awful.widget.layoutbox
-    { :screen s
-      :buttons [ (btn [] :lmb #(awful.layout.inc  1))
-                 (btn [] :rmb #(awful.layout.inc -1))
-               ]}))
+  (wibox.container.constraint
+    { :strategy :max
+      :widget
+        (wgt*
+          { :widget wibox.container.margin
+            :margins 4 }
+          (awful.widget.layoutbox
+            { :screen s
+              :buttons [ (btn [] :lmb #(awful.layout.inc  1))
+                         (btn [] :rmb #(awful.layout.inc -1)) ]}))}))
 
 (local nix-logo
   (wibox.container.constraint
