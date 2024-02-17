@@ -1,38 +1,53 @@
 (require-macros :hibiscus.core)
 (require-macros :hibiscus.vim)
 
-;;; ui
+;------------------------------------------------------------------------------;
+; ui
+
 (set! splitright)
+
 ;; disable netrw in favour of nvim-tree
 (set vim.g.loaded_netrw 1)
 (set vim.g.loaded_netrwPlugin 1)
 
-;;; colours
+;; search case-insensitive, unless any capital letters are in the search
+;; pattern. remember that patterns may use \c and \C to match case-sensitive or
+;; case-insensitive, respectively.
+(set! smartcase)
+(set! ignorecase)
+
+;; line numbers
+(set! number)
+(set! relativenumber)
+(set! signcolumn :yes)
+
+;; colours
 (color! :kanagawa)
 
-;;; whitespace
+;------------------------------------------------------------------------------;
+; formatting
+
+;; whitespace
 (set! tabstop 4)
 (set! shiftwidth 4)
 (set! softtabstop 4)
 (set! expandtab)
 
-;;; line numbers
-(set! number)
-(set! relativenumber)
-(set! signcolumn :yes)
-
-;;; formatting
+;; formatting
 (set! textwidth 80)
 (set! formatoptions :jcrqlt) ; see: :h fo-table
 (augroup! :ftpluginsFormatOverride
   [[Filetype] * "set formatoptions=jcrqlt"])
 
-;;; filetype
+;------------------------------------------------------------------------------;
+
+;; filetype
 (exec!
   [filetype on]
   [filetype plugin indent on]
   [syntax enable])
 
-;;; control
+;------------------------------------------------------------------------------;
+; control
 (set! timeoutlen 500) ; timeout multi-key commands after 500ms
 
