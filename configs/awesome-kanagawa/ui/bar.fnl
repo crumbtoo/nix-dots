@@ -4,6 +4,7 @@
 (local wibox        (require :wibox))
 (local util         (require :lib.util))
 (local rubato       (require :lib.rubato))
+(local naughty      (require :naughty))
 (local colour       (require :lib.color))
 (local {: wgt*}     (require :lib.awesome-utils))
 (import-macros {: wgt : btn} :lib.macros)
@@ -18,8 +19,10 @@
     { :duration 0.2
       :intro    0.1
       :subscribed
-        #(when (not t.selected)
-          (set self.tag_icon.opacity $)) }))
+        #(set self.tag_icon.opacity $) }))
+
+(fn notify [s]
+  (naughty.notify {:title s}))
 
 (fn mk-hooks []
   (let [tagtrans (colour.transition (colour.color {:hex beautiful.fg_unselect})
@@ -27,24 +30,26 @@
     { :on-create
         (fn [self t index objs]
           ; TODO: change colour on urgent
-          (let [taganim (mk-hover-anim self t)]
-            (self.tag_icon:connect_signal :mouse::enter
-              #(set taganim.target beautiful.tag_icon_hover_opacity))
-            (self.tag_icon:connect_signal :mouse::leave
-              #(set taganim.target (focus-or-unfocus-opacity t)))
-            (set taganim.target beautiful.tag_icon_unfocus_opacity))
+          (set self.taganim (mk-hover-anim self t))
+          (self.tag_icon:connect_signal
+            :mouse::enter
+            #(set self.taganim.target beautiful.tag_icon_hover_opacity))
+          (self.tag_icon:connect_signal
+            :mouse::leave
+            #(set self.taganim.target (focus-or-unfocus-opacity t)))
+          (set self.taganim.target beautiful.tag_icon_unfocus_opacity)
           ; call update to avoid weird desyncing
           (self:update_callback t index objs))
       :on-update
         (fn [self t index objects]
-          (let [ ir (. (self:get_children_by_id :tag_icon) 1)
-                 empty? (= (length (t:clients)) 0)]
+          (let [ir (. (self:get_children_by_id :tag_icon) 1)
+                empty? (= (length (t:clients)) 0)]
             (if t.selected
-                (doto ir (tset :text     beautiful.tag_icon_focus)
-                         (tset :opacity  beautiful.tag_icon_focus_opacity))
-                (doto ir (tset :text     (if empty? beautiful.tag_icon_empty
-                                                    beautiful.tag_icon_occ))
-                         (tset :opacity  beautiful.tag_icon_unfocus_opacity)))))
+                (do (set ir.text              beautiful.tag_icon_focus)
+                    (set self.taganim.target  beautiful.tag_icon_focus_opacity))
+                (do (set ir.text              (if empty? beautiful.tag_icon_empty
+                                                         beautiful.tag_icon_occ))
+                    (set self.taganim.target  beautiful.tag_icon_unfocus_opacity)))))
     }))
 
 (fn taglist [s]
