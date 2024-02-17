@@ -8,39 +8,47 @@
 (local {: wgt*}     (require :lib.awesome-utils))
 (import-macros {: wgt : btn} :lib.macros)
 
-(fn taglist [s]
+(fn focus-or-unfocus-opacity [t]
+  (if t.selected
+      beautiful.tag_icon_focus_opacity
+      beautiful.tag_icon_unfocus_opacity))
+
+(fn mk-hover-anim [self t]
+  (rubato.timed
+    { :duration 0.2
+      :intro    0.1
+      :subscribed
+        #(when (not t.selected)
+          (set self.tag_icon.opacity $)) }))
+
+(fn mk-hooks []
   (let [tagtrans (colour.transition (colour.color {:hex beautiful.fg_unselect})
-                                    (colour.color {:hex beautiful.fg_select}))
-        on-create
-          (fn [self t index objs]
-            ; TODO: change colour on urgent
-            ; call on-update to correctly initialise icons
-            (local taganim (rubato.timed
-                             { :duration 0.2
-                               :intro    0.1
-                               :subscribed (fn [pos] (when (not t.selected)
-                                              (set self.circ.bg (. (tagtrans pos) :hex)))) }))
-            (self.circ:connect_signal :mouse::enter
-              (fn []
-                (set taganim.target 1)))
-            (self.circ:connect_signal :mouse::leave
-              (fn []
-                (set taganim.target 0)))
-            (self:update_callback t index objs)
-            )
-        on-update
-          (fn [self t index objects]
-            (let [ ir (. (self:get_children_by_id :tag_icon) 1)
-                   empty? (= (length (t:clients)) 0)]
-              (if t.selected
-                  (doto ir
-                    (tset :text     beautiful.tag_icon_focus)
-                    (tset :opacity  beautiful.tag_icon_focus_opacity))
-                  (doto ir
-                    (tset :text     (if empty?
-                                        beautiful.tag_icon_empty
-                                        beautiful.tag_icon_occ))
-                    (tset :opacity  beautiful.tag_icon_unfocus_opacity)))))]
+                                    (colour.color {:hex beautiful.fg_select}))]
+    { :on-create
+        (fn [self t index objs]
+          ; TODO: change colour on urgent
+          (let [taganim (mk-hover-anim self t)]
+            (self.tag_icon:connect_signal :mouse::enter
+              #(set taganim.target beautiful.tag_icon_hover_opacity))
+            (self.tag_icon:connect_signal :mouse::leave
+              #(set taganim.target (focus-or-unfocus-opacity t)))
+            (set taganim.target beautiful.tag_icon_unfocus_opacity))
+          ; call update to avoid weird desyncing
+          (self:update_callback t index objs))
+      :on-update
+        (fn [self t index objects]
+          (let [ ir (. (self:get_children_by_id :tag_icon) 1)
+                 empty? (= (length (t:clients)) 0)]
+            (if t.selected
+                (doto ir (tset :text     beautiful.tag_icon_focus)
+                         (tset :opacity  beautiful.tag_icon_focus_opacity))
+                (doto ir (tset :text     (if empty? beautiful.tag_icon_empty
+                                                    beautiful.tag_icon_occ))
+                         (tset :opacity  beautiful.tag_icon_unfocus_opacity)))))
+    }))
+
+(fn taglist [s]
+  (let [ {: on-update : on-create} (mk-hooks) ]
     (awful.widget.taglist
       { :screen     s
         :filter     awful.widget.taglist.filter.all
@@ -56,16 +64,11 @@
             :shape  beautiful.taglist_shape
             :widget wibox.container.background }
           (wgt
-            { :id     :circ
-              :widget wibox.container.background
-              :bg     beautiful.fg_unselect
-              :shape  gears.shape.circle }
-            (wgt
-              { :id     :tag_icon
-                :font   beautiful.taglist_font
-                :halign :center
-                :valign :center
-                :widget wibox.widget.textbox })))
+            { :id     :tag_icon
+              :font   beautiful.taglist_font
+              :halign :center
+              :valign :center
+              :widget wibox.widget.textbox }))
       })))
 
 (local text-clock
