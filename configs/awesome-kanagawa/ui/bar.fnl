@@ -25,32 +25,30 @@
   (naughty.notify {:title s}))
 
 (local taglist-hooks
-  (let [tagtrans (colour.transition (colour.color {:hex beautiful.fg_unselect})
-                                    (colour.color {:hex beautiful.fg_select}))]
-    { :on-create
-        (fn [self t index objs]
-          ; TODO: change colour on urgent
-          (set self.taganim (mk-hover-anim self.tag_icon t))
-          (self.tag_icon:connect_signal
-            :mouse::enter
-            #(set self.taganim.target beautiful.tag_icon_hover_opacity))
-          (self.tag_icon:connect_signal
-            :mouse::leave
-            #(set self.taganim.target (focus-or-unfocus-opacity t)))
-          (set self.taganim.target beautiful.tag_icon_unfocus_opacity)
-          ; call update to avoid weird desyncing
-          (self:update_callback t index objs))
-      :on-update
-        (fn [self t index objects]
-          (let [ir (. (self:get_children_by_id :tag_icon) 1)
-                empty? (= (length (t:clients)) 0)]
-            (if t.selected
-                (do (set ir.text              beautiful.tag_icon_focus)
-                    (set self.taganim.target  beautiful.tag_icon_focus_opacity))
-                (do (set ir.text              (if empty? beautiful.tag_icon_empty
-                                                         beautiful.tag_icon_occ))
-                    (set self.taganim.target  beautiful.tag_icon_unfocus_opacity)))))
-    }))
+  { :on-create
+      (fn [self t index objs]
+        ; TODO: change colour on urgent
+        (set self.taganim (mk-hover-anim self.tag_icon t))
+        (self.tag_icon:connect_signal
+          :mouse::enter
+          #(set self.taganim.target beautiful.tag_icon_hover_opacity))
+        (self.tag_icon:connect_signal
+          :mouse::leave
+          #(set self.taganim.target (focus-or-unfocus-opacity t)))
+        (set self.taganim.target beautiful.tag_icon_unfocus_opacity)
+        ; call update to avoid weird desyncing
+        (self:update_callback t index objs))
+    :on-update
+      (fn [self t index objects]
+        (let [ir (. (self:get_children_by_id :tag_icon) 1)
+              empty? (= (length (t:clients)) 0)]
+          (if t.selected
+              (do (set ir.text              beautiful.tag_icon_focus)
+                  (set self.taganim.target  beautiful.tag_icon_focus_opacity))
+              (do (set ir.text              (if empty? beautiful.tag_icon_empty
+                                                       beautiful.tag_icon_occ))
+                  (set self.taganim.target  beautiful.tag_icon_unfocus_opacity)))))
+    })
 
 (fn taglist [s]
   (let [ {: on-update : on-create} taglist-hooks ]
@@ -84,22 +82,30 @@
       :valign   :center
       :widget   wibox.widget.textclock }))
 
+(local tasklist-hooks
+  { :on-create
+      (fn [self c ind clients])
+    :on-update
+      (fn [self c ind clients])
+  })
+
 (fn tasklist [s]
-  (wgt
-    { :widget wibox.container.margin
-      :margins beautiful.tasklist_margins }
-    (awful.widget.tasklist
-      { :filter awful.widget.tasklist.filter.currenttags
-        :layout { :layout wibox.layout.fixed.vertical
-                  :spacing beautiful.tasklist_spacing }
-        :screen s
-        :widget_template
-          (wgt
-            { :widget wibox.container.margin
-              :margins beautiful.tasklist_icon_margins }
-            (wgt
-              { :id :icon_role
-                :widget wibox.widget.imagebox }))})))
+  (let [{: on-create : on-update} tasklist-hooks]
+    (wgt
+      { :widget wibox.container.margin
+        :margins beautiful.tasklist_margins }
+      (awful.widget.tasklist
+        { :filter awful.widget.tasklist.filter.currenttags
+          :layout { :layout wibox.layout.fixed.vertical
+                    :spacing beautiful.tasklist_spacing }
+          :screen s
+          :widget_template
+            (wgt { :widget wibox.container.margin
+                   :create_callback on-create
+                   :update_callback on-update
+                   :margins beautiful.tasklist_icon_margins }
+              (wgt { :id :icon_role
+                     :widget wibox.widget.imagebox }))}))))
 
 (fn layout-box [s]
   (wibox.container.constraint

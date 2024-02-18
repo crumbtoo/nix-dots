@@ -46,9 +46,14 @@
   (let [{: mods : key : press : release : data } opts]
     `(awful.key ,(unname-mods mods) ,key ,press ,release ,data)))
 
-(fn key* [[mods key press release data]]
+(fn key-simple [[mods key press release data]]
   (let [data* (if (= (type data) :string) {:description data} data)]
     `(awful.key ,(unname-mods mods) ,key ,press ,release ,data*)))
+
+(fn key* [k]
+  (if (sequence? k)   (key-simple k)
+      (table? k)      `(awful.key ,k)
+      (assert-compile false "syntax error" k)))
 
 ; TODO: group syntax:
 ; (mk-client-mappings!
@@ -70,6 +75,12 @@
            (fun.map btn*)
            (fun.totable))))
 
+(fn mk-global-keys! [...]
+  `(awful.keyboard.append_global_keybindings
+     ,(->> [...]
+           (fun.map key*)
+           (fun.totable))))
+
 { : rel-require
   : wgt
   : unname-btn
@@ -77,5 +88,6 @@
   : btn
   : mk-client-keys!
   : mk-client-buttons!
+  : mk-global-keys!
 }
 
