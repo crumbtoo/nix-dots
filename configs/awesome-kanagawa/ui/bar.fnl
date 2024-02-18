@@ -134,7 +134,7 @@
             :image beautiful.wibar_logo }))
     }))
 
-(fn [s]
+(fn wibar [s]
   (awful.wibar
     { :position     :left
       :screen       s
