@@ -71,6 +71,8 @@
         :dependencies [ :nvim-telescope/telescope.nvim ]
         :config #((. (require :telescope) :load_extension) :hoogle))
   (opts :MrcJkb/haskell-tools.nvim)
+  ;; agda
+  ; :msuperdock/vim-agda
 
   ;;; vim-fu
   (opts :windwp/nvim-autopairs
