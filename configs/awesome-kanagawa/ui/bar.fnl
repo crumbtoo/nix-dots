@@ -4,43 +4,54 @@
 (local wibox        (require :wibox))
 (local util         (require :lib.util))
 (local rubato       (require :lib.rubato))
+(local naughty      (require :naughty))
 (local colour       (require :lib.color))
 (local {: wgt*}     (require :lib.awesome-utils))
 (import-macros {: wgt : btn} :lib.macros)
 
+(fn focus-or-unfocus-opacity [t]
+  (if t.selected
+      beautiful.tag_icon_focus_opacity
+      beautiful.tag_icon_unfocus_opacity))
+
+(macro mk-hover-anim [name t]
+  `(rubato.timed
+    { :duration 0.2
+      :intro    0.1
+      :subscribed
+        #(tset ,name :opacity $) }))
+
+(fn notify [s]
+  (naughty.notify {:title s}))
+
+(local taglist-hooks
+  { :on-create
+      (fn [self t index objs]
+        ; TODO: change colour on urgent
+        (set self.taganim (mk-hover-anim self.tag_icon t))
+        (self.tag_icon:connect_signal
+          :mouse::enter
+          #(set self.taganim.target beautiful.tag_icon_hover_opacity))
+        (self.tag_icon:connect_signal
+          :mouse::leave
+          #(set self.taganim.target (focus-or-unfocus-opacity t)))
+        (set self.taganim.target beautiful.tag_icon_unfocus_opacity)
+        ; call update to avoid weird desyncing
+        (self:update_callback t index objs))
+    :on-update
+      (fn [self t index objects]
+        (let [ir (. (self:get_children_by_id :tag_icon) 1)
+              empty? (= (length (t:clients)) 0)]
+          (if t.selected
+              (do (set ir.text              beautiful.tag_icon_focus)
+                  (set self.taganim.target  beautiful.tag_icon_focus_opacity))
+              (do (set ir.text              (if empty? beautiful.tag_icon_empty
+                                                       beautiful.tag_icon_occ))
+                  (set self.taganim.target  beautiful.tag_icon_unfocus_opacity)))))
+    })
+
 (fn taglist [s]
-  (let [tagtrans (colour.transition (colour.color {:hex beautiful.fg_unselect})
-                                    (colour.color {:hex beautiful.fg_select}))
-        on-create
-          (fn [self t index objs]
-            ; TODO: change colour on urgent
-            ; call on-update to correctly initialise icons
-            (local taganim (rubato.timed
-                             { :duration 0.2
-                               :intro    0.1
-                               :subscribed (fn [pos] (when (not t.selected)
-                                              (set self.circ.bg (. (tagtrans pos) :hex)))) }))
-            (self.circ:connect_signal :mouse::enter
-              (fn []
-                (set taganim.target 1)))
-            (self.circ:connect_signal :mouse::leave
-              (fn []
-                (set taganim.target 0)))
-            (self:update_callback t index objs)
-            )
-        on-update
-          (fn [self t index objects]
-            (let [ ir (. (self:get_children_by_id :tag_icon) 1)
-                   empty? (= (length (t:clients)) 0)]
-              (if t.selected
-                  (doto ir
-                    (tset :text     beautiful.tag_icon_focus)
-                    (tset :opacity  beautiful.tag_icon_focus_opacity))
-                  (doto ir
-                    (tset :text     (if empty?
-                                        beautiful.tag_icon_empty
-                                        beautiful.tag_icon_occ))
-                    (tset :opacity  beautiful.tag_icon_unfocus_opacity)))))]
+  (let [ {: on-update : on-create} taglist-hooks ]
     (awful.widget.taglist
       { :screen     s
         :filter     awful.widget.taglist.filter.all
@@ -56,16 +67,11 @@
             :shape  beautiful.taglist_shape
             :widget wibox.container.background }
           (wgt
-            { :id     :circ
-              :widget wibox.container.background
-              :bg     beautiful.fg_unselect
-              :shape  gears.shape.circle }
-            (wgt
-              { :id     :tag_icon
-                :font   beautiful.taglist_font
-                :halign :center
-                :valign :center
-                :widget wibox.widget.textbox })))
+            { :id     :tag_icon
+              :font   beautiful.taglist_font
+              :halign :center
+              :valign :center
+              :widget wibox.widget.textbox }))
       })))
 
 (local text-clock
@@ -76,29 +82,42 @@
       :valign   :center
       :widget   wibox.widget.textclock }))
 
+(local tasklist-hooks
+  { :on-create
+      (fn [self c ind clients])
+    :on-update
+      (fn [self c ind clients])
+  })
+
 (fn tasklist [s]
-  (wgt
-    { :widget wibox.container.margin
-      :margins beautiful.tasklist_margins }
-    (awful.widget.tasklist
-      { :filter awful.widget.tasklist.filter.currenttags
-        :layout { :layout wibox.layout.fixed.vertical
-                  :spacing beautiful.tasklist_spacing }
-        :screen s
-        :widget_template
-          (wgt
-            { :widget wibox.container.margin
-              :margins beautiful.tasklist_icon_margins }
-            (wgt
-              { :id :icon_role
-                :widget wibox.widget.imagebox }))})))
+  (let [{: on-create : on-update} tasklist-hooks]
+    (wgt
+      { :widget wibox.container.margin
+        :margins beautiful.tasklist_margins }
+      (awful.widget.tasklist
+        { :filter awful.widget.tasklist.filter.currenttags
+          :layout { :layout wibox.layout.fixed.vertical
+                    :spacing beautiful.tasklist_spacing }
+          :screen s
+          :widget_template
+            (wgt { :widget wibox.container.margin
+                   :create_callback on-create
+                   :update_callback on-update
+                   :margins beautiful.tasklist_icon_margins }
+              (wgt { :id :icon_role
+                     :widget wibox.widget.imagebox }))}))))
 
 (fn layout-box [s]
-  (awful.widget.layoutbox
-    { :screen s
-      :buttons [ (btn [] :lmb #(awful.layout.inc  1))
-                 (btn [] :rmb #(awful.layout.inc -1))
-               ]}))
+  (wibox.container.constraint
+    { :strategy :max
+      :widget
+        (wgt*
+          { :widget wibox.container.margin
+            :margins 4 }
+          (awful.widget.layoutbox
+            { :screen s
+              :buttons [ (btn [] :lmb #(awful.layout.inc  1))
+                         (btn [] :rmb #(awful.layout.inc -1)) ]}))}))
 
 (local nix-logo
   (wibox.container.constraint
@@ -115,7 +134,7 @@
             :image beautiful.wibar_logo }))
     }))
 
-(fn [s]
+(fn wibar [s]
   (awful.wibar
     { :position     :left
       :screen       s

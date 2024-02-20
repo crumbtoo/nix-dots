@@ -47,8 +47,8 @@
     :border_focus     kana.old-white
     ; :border_marked    :#91231c
 
-    :fg_select        :#ffffff80
-    :fg_unselect      :#ffffff00
+    :fg_select        :#00ff0080
+    :fg_unselect      :#00ff0000
 
     :wallpaper        (rel "/wallpaper.png")
 
@@ -84,6 +84,7 @@
     :tag_icon_focus               "⊗"
     :tag_icon_focus_opacity       1
     :tag_icon_unfocus_opacity     0.5
+    :tag_icon_hover_opacity       0.75
 
     ;; text clock
     :textclock_font               (primary-font 14)
@@ -139,5 +140,5 @@
           :right [:sticky :ontop :floating] }
     }))
 
-nil
+{}
 

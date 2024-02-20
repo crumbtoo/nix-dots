@@ -93,6 +93,15 @@
         "_GTK_FRAME_EXTENTS@:c"
       ];
       shadow-ignore-shaped = false;
+      # blur = {
+      #   method = "kawase";
+      #   strength = 5;
+      #   size = 10;
+      #   deviation = 5.0;
+      # };
+      # blur-background-exclude = [
+      #   "!class_g = 'rofi"
+      # ];
     };
     enable = true;
     # backend = "glx";
