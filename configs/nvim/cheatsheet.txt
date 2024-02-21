@@ -1,45 +1,42 @@
-## paredit @parens @lisp
-Splice sexp                   | <localleader>@
-Slurp forwards                | >)
-Barf backwards                | >(
-
-Barf forwards                 | <)
-Slurp backwards               | <(
-
-Drag element right            | >e
-Drag element left             | <e
-
-Drag form right               | >f
-Drag form left                | <f
-
-Raise form                    | <localleader>o
-Raise element                 | <localleader>O
-
-Jump to next element tail     | E
-Jump to next element head     | W
-
-Jump to previous element head | B
-Jump to previous element tail | gE
-
-Jump to parent form's head    | (
-Jump to parent form's tail    | )
-Around form                   | af
-In form                       | if
-Around top level form         | aF
-In top level form             | iF
-Around element                | ae
-In Element                    | ie
-
-Wrap element insert head | <localleader>w
-Wrap element insert tail | <localleader>W
-Wrap form insert head    | <localleader>i
-Wrap form insert tail    | <localleader>I
+## vim-sexp @language @lisp @parens
+Move to prev element head        | B
+Move to next element head        | W
+Move to prev element tail        | gE
+Move to next element tail        | E
+Insert at form head              | <I
+Insert at form tail              | >I
+Swap form backwards              | <f
+Swap form backwards              | >f
+Swap atom backwards              | <e
+Swap atom forward                | >e
+Barf forwards                    | >(
+Barf backwards                   | <)
+Slurp forwards                   | >)
+Slurp backwards                  | <(
+Wrap element w/ (..) insert head | <localleader>w
+Wrap element w/ (..) insert tail | <localleader>W
+Wrap form w/ (..) insert head    | <localleader>i
+Wrap form w/ (..) insert tail    | <localleader>I
+Wrap form w/ [..] insert head    | <localleader>[
+Wrap form w/ [..] insert tail    | <localleader>]
+Wrap form w/ {..} insert head    | <localleader>{
+Wrap form w/ {..} insert tail    | <localleader>}
+Wrap element w/ {..} insert head | <localleader>e{
+Wrap element w/ {..} insert tail | <localleader>e}
+Wrap element w/ [..] insert head | <localleader>e[
+Wrap element w/ [..] insert tail | <localleader>e]
+Around form                      | af
+Around element                   | ae
+Around string                    | as
+Around root form                 | aF
+Next root element                | ]]
+Prev root element                | [[
 
 ## LaTeX @math @tex
 Custom environment | \newenvironment{envname} {open} {close}
 Custom command     | \newenvironment{\cmdname}[argc]{body. arg1: #1}
 
-## telescope hoogle @hoogle
+## telescope-hoogle @hoogle
 Open entry in browser   | <C-b>
 Copy entry to clipboard | <CR>
 

@@ -2,8 +2,8 @@
 (require-macros :hibiscus.vim)
 (local utils (require :lib.utils))
 
-(set vim.g.mapleader " ")
-(set vim.g.maplocalleader "  ")
+(g! vim.g.mapleader " ")
+(g! vim.g.maplocalleader "  ")
 
 (map! [n :verbose] :<C-\> "/\\<\\><Left><Left>"
       "search \\<word\\>")
