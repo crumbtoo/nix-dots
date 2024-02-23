@@ -88,22 +88,26 @@
 
 ;;; vim-fu
 
-(map! [n :silent] :<leader><C-i>
+(map! [n] :<leader><C-i>
       (fn []
         (let [ln (vim.fn.line ".")]
           (vim.fn.append ln vim.b.rulestring)
           (vim.api.nvim_feedkeys :0j :n true)))
       "insert hrule comment")
 
-(map! [n :silent] :<leader>w
+(map! [x] :x ":<C-U>call cursor(line(\"'}\") - empty(getline(line(\"'}\"))),col(\"'>\"))<CR>`<1v``"
+      "move to paragraph start")
+
+;; nvim-window
+(map! [n] :<leader>w
       (fn []
         ((. (require :nvim-window) :pick)))
       "view jump to window options")
 
+;; commentary
 (map! [nxo] :#
       :<Plug>Commentary
       "comment <motion>")
-
 (map! [n] :##
       :<Plug>CommentaryLine
       "comment current line")
@@ -156,10 +160,10 @@
            "previous choice"))
 
 ;; leap.nvim
-(map! [n] :s
+(map! [nx] :s
       "<Plug>(leap-forward)"
       "leap forward")
-(map! [n] :S
+(map! [nx] :S
       "<Plug>(leap-backward)"
       "leap backward")
 (map! [n] :gs
