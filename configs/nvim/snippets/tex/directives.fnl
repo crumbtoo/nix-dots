@@ -17,5 +17,13 @@
      :\frac
      (fmta "\\frac{<>}{<>}"
            [(i 1) (i 2)]))
+  (s :sect
+     :\section
+     (fmta "\\section{<>}"
+           [(i 1)]))
+  (s :tit
+     :\textit
+     (fmta "\\textit{<>}"
+           [(i 1)]))
 ]
 

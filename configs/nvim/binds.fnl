@@ -2,8 +2,8 @@
 (require-macros :hibiscus.vim)
 (local utils (require :lib.utils))
 
-(g! vim.g.mapleader " ")
-(g! vim.g.maplocalleader "  ")
+(g! mapleader " ")
+(g! maplocalleader "  ")
 
 (map! [n :verbose] :<C-\> "/\\<\\><Left><Left>"
       "search \\<word\\>")
@@ -108,9 +108,15 @@
       :<Plug>CommentaryLine
       "comment current line")
 
-(map! [xn] :ga
+(map! [nx] :ga
       "<Plug>(EasyAlign)"
       "start easy-align command")
+
+;; vim-matchup
+(map! [nx] ")" "<Plug>(matchup-]%)"
+      "move to paired delimiter")
+(map! [nx] "(" "<Plug>(matchup-[%)"
+      "move to paired delimiter")
 
 ;; luasnip
 (let [ls (require :luasnip)
@@ -118,25 +124,25 @@
             (vim.api.nvim_replace_termcodes $ true true true)
             :n
             false)]
-     (map! [i :silent] :<Tab>
+     (map! [i] :<Tab>
            (fn []
              (if (ls.expand_or_jumpable)
                  (ls.expand_or_jump)
                  (t :<Tab>)))
            "expand or jump to snippet")
-     (map! [s :silent] :<Tab>
+     (map! [s] :<Tab>
            (fn []
              (if (ls.jumpable 1)
                  (ls.jump 1)
                  (t :<Tab>)))
            "jump to next snippet")
-     (map! [si :silent] :<S-Tab>
+     (map! [si] :<S-Tab>
            (fn []
              (if (ls.jumpable -1)
                  (ls.jump -1)
                  (t :<S-Tab>)))
            "jump to previous snippet")
-     (map! [si :silent] :<C-n>
+     (map! [si] :<C-n>
            (fn []
              (if (ls.choice_active)
                  (ls.change_choice 1)

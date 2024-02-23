@@ -51,3 +51,10 @@
 ; control
 (set! timeoutlen 500) ; timeout multi-key commands after 500ms
 
+;------------------------------------------------------------------------------;
+; abbreviations
+
+(exec!
+  ; open help windows in a vertical split
+  [cabbrev h vert bo h])
+
