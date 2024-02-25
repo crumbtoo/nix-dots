@@ -95,12 +95,22 @@
 
 ;;; vim-fu
 
+(macro with-current-line [[ln] ...]
+  `(let [,ln (vim.fn.line ".")]
+     ,...))
+
 (map! [n] :<leader><C-i>
       (fn []
-        (let [ln (vim.fn.line ".")]
+        (with-current-line [ln]
           (vim.fn.append ln vim.b.rulestring)
           (vim.api.nvim_feedkeys :0j :n true)))
       "insert hrule comment")
+
+(map! [n] :<CR>
+      (fn []
+        (with-current-line [ln]
+          (vim.fn.append ln "")))
+      "insert newline below cursor")
 
 (map! [x] :x ":<C-U>call cursor(line(\"'}\") - empty(getline(line(\"'}\"))),col(\"'>\"))<CR>`<1v``"
       "move to paragraph start")

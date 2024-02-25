@@ -70,7 +70,7 @@
         :init (fn []
                 (g! conjure#mapping#prefix "'")
                 (g! conjure#client#scheme#stdio#command "csi -quiet -:c")
-                (g! g:conjure#client#scheme#stdio#prompt_pattern "\n-#;%d-> ")))
+                (g! conjure#client#scheme#stdio#prompt_pattern "\n-#;%d-> ")))
   ; :vlime/vlime
   ;; agda
   ; :msuperdock/vim-agda
