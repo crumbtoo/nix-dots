@@ -45,8 +45,8 @@
   (map! [nxo :buffer] "<LocalLeader>{" "<Plug>(sexp_curly_head_wrap_list)")
   (map! [nxo :buffer] "<LocalLeader>}" "<Plug>(sexp_curly_tail_wrap_list)")
   ; wrap element
-  (map! [nxo :buffer] "<LocalLeader>W"  "<Plug>(sexp_round_head_wrap_element)")
-  (map! [nxo :buffer] "<LocalLeader>w"  "<Plug>(sexp_round_tail_wrap_element)")
+  (map! [nxo :buffer] "<LocalLeader>w"  "<Plug>(sexp_round_head_wrap_element)")
+  (map! [nxo :buffer] "<LocalLeader>W"  "<Plug>(sexp_round_tail_wrap_element)")
   (map! [nxo :buffer] "<LocalLeader>e[" "<Plug>(sexp_square_head_wrap_element)")
   (map! [nxo :buffer] "<LocalLeader>e]" "<Plug>(sexp_square_tail_wrap_element)")
   (map! [nxo :buffer] "<LocalLeader>e{" "<Plug>(sexp_curly_head_wrap_element)")

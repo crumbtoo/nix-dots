@@ -3,8 +3,8 @@ Move to prev element head        | B
 Move to next element head        | W
 Move to prev element tail        | gE
 Move to next element tail        | E
-Insert at form head              | <I
-Insert at form tail              | >I
+Insert at form head              | <localleader>h
+Insert at form tail              | <localleader>h
 Swap form backwards              | <f
 Swap form backwards              | >f
 Swap atom backwards              | <e
@@ -43,4 +43,21 @@ Copy entry to clipboard | <CR>
 ## fennel @language
 ->  | Splice into first argument
 ->> | Splice into last argument
+
+## conjure @language @lisp @repl
+evaluate the current sleection                 | <prefix>E
+evaluate a motion                              | <prefix>E
+evaluate form                                  | <prefix>ee
+evaluate root form                             | <prefix>er
+evaluate word                                  | <prefix>ew
+evaluate and replace form                      | <prefix>e!
+evaluate form at mark                          | <prefix>em[mark]
+soft reset log buffer                          | <prefix>lr
+hard reset log buffer                          | <prefix>lR
+move to latest log result                      | <prefix>ll
+open log in horizontal split                   | <prefix>ls
+open log in vertical split                     | <prefix>lv
+open log in new tab                            | <prefix>lt
+open log in current window (return with <C-o>) | <prefix>le
+close all visible log windows                  | <prefix>lq
 

@@ -42,15 +42,6 @@
   ;;; language tools
   (opts :nvim-treesitter/nvim-treesitter
         :config #(require :plugins.treesitter))
-  ; (opts :julienvincent/nvim-paredit
-  ;       :config (require :plugins.nvim-paredit))
-  ; (opts :julienvincent/nvim-paredit-fennel
-  ;       :dependencies [ :julienvincent/nvim-paredit ]
-  ;       :ft [ :fennel ]
-  ;       :config #(: (require :nvim-paredit-fennel) :setup))
-  ; (opts :Olical/conjure
-  ;       :init (fn []
-  ;               (tset vim.g "conjure#filetype#fennel" :conjure.client.fennel.stdio)))
   (opts :jaawerth/fennel.vim)
   (opts :Vigemus/iron.nvim
         :config #(require :plugins.iron))
@@ -75,6 +66,12 @@
   (opts :guns/vim-sexp
         :init #(g! sexp_filetypes "")
         :config #(require :plugins.vim-sexp))
+  (opts :Olical/conjure
+        :init (fn []
+                (g! conjure#mapping#prefix "'")
+                (g! conjure#client#scheme#stdio#command "csi -quiet -:c")
+                (g! g:conjure#client#scheme#stdio#prompt_pattern "\n-#;%d-> ")))
+  ; :vlime/vlime
   ;; agda
   ; :msuperdock/vim-agda
 

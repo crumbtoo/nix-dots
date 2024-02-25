@@ -5,17 +5,24 @@
 (g! mapleader " ")
 (g! maplocalleader "  ")
 
+;;; general
+
 (map! [n :verbose] :<C-\> "/\\<\\><Left><Left>"
       "search \\<word\\>")
 
-(map! [n :silent] :<space> ::nohl<CR>
+(map! [n] :<space> ::nohl<CR>
       "hide highlighted text")
 
-(map! [ic] :jk :<Esc>
+;; escape
+(map! [ci] :jk :<Esc>
       "escape")
-(map! [ic] :kj :<Esc>
+(map! [ci] :kj :<Esc>
       "escape")
-
+(map! [x] :JK :<Esc>
+      "escape visual mode")
+(map! [x] :KJ :<Esc>
+      "escape visual mode")
+; can i just use (map! [t] :jk :<C-\><C-n>)?
 (augroup! :termesc
   [[TermOpen] term://* "tnoremap <buffer> jk <C-\\><C-n>"]
   [[TermOpen] term://* "tnoremap <buffer> kj <C-\\><C-n>"])
@@ -117,9 +124,9 @@
       "start easy-align command")
 
 ;; vim-matchup
-(map! [nx] ")" "<Plug>(matchup-]%)"
+(map! [nxo] ")" "<Plug>(matchup-]%)"
       "move to paired delimiter")
-(map! [nx] "(" "<Plug>(matchup-[%)"
+(map! [nxo] "(" "<Plug>(matchup-[%)"
       "move to paired delimiter")
 
 ;; luasnip
