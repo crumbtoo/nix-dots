@@ -74,6 +74,13 @@
   ; :vlime/vlime
   ;; agda
   ; :msuperdock/vim-agda
+  ;; markdown
+  ; (opts :iamcco/markdown-preview.nvim
+  ;       :cmd [:MarkdownPreviewToggle :MarkdownPreview :MarkdownPreviewStop]
+  ;       :ft [:markdown]
+  ;       :build #((. vim.fn :mkdp#util#install))
+  ;       :init (fn []
+  ;               (g! mkdp_refresh_slow 1)))
 
   ;;; vim-fu
   (opts :windwp/nvim-autopairs
@@ -87,6 +94,7 @@
         ; :build "make install_jsregexp"
         :opts
           { :link_roots false
+            :keep_roots false
           }
         :version :v2.2
         :config
