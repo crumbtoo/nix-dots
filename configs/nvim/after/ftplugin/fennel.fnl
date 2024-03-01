@@ -1,6 +1,5 @@
 (require-macros :hibiscus.core)
 (require-macros :hibiscus.vim)
-(local utils        (require :lib.utils))
 
 ;;; whitespace
 (set! tabstop 2)
@@ -10,11 +9,4 @@
 
 (set vim.b.rulestring
      ";------------------------------------------------------------------------------;")
-
-; (set vim.b.repl)
-
-(set vim.b.repl
-     (utils.make-repl
-       { :cmd        "fennel"}))
-       
 

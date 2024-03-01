@@ -1,6 +1,5 @@
 (require-macros :hibiscus.core)
 (require-macros :hibiscus.vim)
-(local utils (require :lib.utils))
 
 (g! mapleader " ")
 (g! maplocalleader "  ")

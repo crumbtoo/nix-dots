@@ -42,7 +42,7 @@
   ;;; language tools
   (opts :nvim-treesitter/nvim-treesitter
         :config #(require :plugins.treesitter))
-  (opts :jaawerth/fennel.vim)
+  ; (opts :jaawerth/fennel.vim)
   (opts :Vigemus/iron.nvim
         :config #(require :plugins.iron))
   (opts :sudormrfbin/cheatsheet.nvim
@@ -67,8 +67,10 @@
         :init #(g! sexp_filetypes "")
         :config #(require :plugins.vim-sexp))
   (opts :Olical/conjure
+        :dev true
         :init (fn []
                 (g! conjure#mapping#prefix "'")
+                ; (g! conjure#filetype#haskell :conjure.client.haskell.stdio)
                 (g! conjure#client#scheme#stdio#command "csi -quiet -:c")
                 (g! conjure#client#scheme#stdio#prompt_pattern "\n-#;%d-> ")))
   ; :vlime/vlime
@@ -104,5 +106,6 @@
               (ls.load { :paths data }))))
   ;;; misc
   :tpope/vim-fugitive
+  :dbakker/vim-paragraph-motion
 ]
 

@@ -6,6 +6,9 @@
   { :check_ts true
     :enable_check_bracket_line false
     :map_cr true
+    :enable_bracket_in_quote true
+    :enable_afterquote true
+    :disable_in_macro false
   })
 
 (macro ft-rules [fts ...]

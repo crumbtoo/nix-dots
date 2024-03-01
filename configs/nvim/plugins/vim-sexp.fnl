@@ -78,9 +78,9 @@
                  "barf forwards")
   (map! [n :buffer] "<)" "<Plug>(sexp_emit_tail_element)"
                  "barf backwards")
-  (map! [n :buffer] ">)" "<Plug>(sexp_capture_prev_element)"
+  (map! [n :buffer] ">)" "<Plug>(sexp_capture_next_element)"
                  "slurp forwards")
-  (map! [n :buffer] "<(" "<Plug>(sexp_capture_next_element)"
+  (map! [n :buffer] "<(" "<Plug>(sexp_capture_prev_element)"
                  "slurp backwards"))
 
 (augroup! :vim_sexp_mapping
