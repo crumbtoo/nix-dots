@@ -67,13 +67,16 @@
         :init #(g! sexp_filetypes "")
         :config #(require :plugins.vim-sexp))
   (opts :Olical/conjure
-        :dev true
         :init (fn []
                 (g! conjure#mapping#prefix "'")
                 ; (g! conjure#filetype#haskell :conjure.client.haskell.stdio)
                 (g! conjure#client#scheme#stdio#command "csi -quiet -:c")
                 (g! conjure#client#scheme#stdio#prompt_pattern "\n-#;%d-> ")))
-  ; :vlime/vlime
+  (opts :kovisoft/slimv
+        :config #(require :plugins.slimv)
+        :lazy false
+        ; load before nvim-autopairs
+        :priority 60)
   ;; agda
   ; :msuperdock/vim-agda
   ;; markdown

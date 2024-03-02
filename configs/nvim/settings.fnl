@@ -59,17 +59,3 @@
   ; open help windows in a vertical split
   [cabbrev h vert bo h])
 
-;------------------------------------------------------------------------------;
-
-;; we have to define some syntax rules for vim-sexp to work properly.
-;; by default, vim-sexp will completely ignore fennel strings and not treat
-;; them as atoms. vim-sexp will also incorrectly match parens inside strings.
-
-;; these syntax commands alone don't work for some fucking mysterious reason, so
-;; we also wrap it in an autocmd
-
-(augroup! :BullshitFTPluginSyntaxHack
-  [[FileType] [fennel] 
-    `(do (vim.cmd "syntax match string /:[^()\\[\\]\\{\\}\"'\\~\\@`,;]+/")
-         (vim.cmd "syntax region string start=/\"/ skip=/\\\\\"/ end=/\"/"))])
-

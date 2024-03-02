@@ -17,18 +17,36 @@
         "inner element")
 
   ;; movement
-  (map! [nxo :buffer] :B "<Plug>(sexp_move_to_prev_element_head)"
+  (map! [nxo :buffer] "<C-b>" "<Plug>(sexp_move_to_prev_element_head)"
         "move to prev element head")
-  (map! [nxo :buffer] :W "<Plug>(sexp_move_to_next_element_head)"
+  (map! [nxo :buffer] "<C-w>" "<Plug>(sexp_move_to_next_element_head)"
         "move to next element head")
-  (map! [nxo :buffer] :gE "<Plug>(sexp_move_to_prev_element_tail)"
+  (map! [nxo :buffer] "<C-g><C-e>" "<Plug>(sexp_move_to_prev_element_tail)"
         "move to prev element tail")
-  (map! [nxo :buffer] :E "<Plug>(sexp_move_to_next_element_tail)"
+  (map! [nxo :buffer] "<C-e>" "<Plug>(sexp_move_to_next_element_tail)"
         "move to next element tail")
   (map! [nxo :buffer] "[[" "<Plug>(sexp_move_to_prev_top_element)"
         "move to prev top-level element")
   (map! [nxo :buffer] "]]" "<Plug>(sexp_move_to_next_top_element)"
         "move to next top-level element")
+
+  ;; flow
+  (map! [n :buffer] "<C-p>" "<Plug>(sexp_flow_to_next_open)"
+        "flow to next open")
+  (map! [n :buffer] "<C-o>" "<Plug>(sexp_flow_to_prev_open)"
+        "flow to prev open")
+  (map! [n :buffer] "<C-]>" "<Plug>(sexp_flow_to_next_close)"
+        "flow to next close")
+  (map! [n :buffer] "<C-[>" "<Plug>(sexp_flow_to_prev_close)"
+        "flow to prev close")
+  (map! [n :buffer] "W" "<Plug>(sexp_flow_to_next_leaf_head)"
+        "flow to next leaf head")
+  (map! [n :buffer] "B" "<Plug>(sexp_flow_to_prev_leaf_head)"
+        "flow to prev leaf head")
+  (map! [n :buffer] "gE" "<Plug>(sexp_flow_to_prev_leaf_tail)"
+        "flow to prev leaf tail")
+  (map! [n :buffer] "E" "<Plug>(sexp_flow_to_next_leaf_tail)"
+        "flow to next leaf tail")
 
   ;; align
   (map! [nxo :buffer] "==" "<Plug>(sexp_indent)"
@@ -75,15 +93,30 @@
 
   ;; slurp/barf
   (map! [n :buffer] ">(" "<Plug>(sexp_emit_head_element)"
-                 "barf forwards")
+        "barf forwards")
   (map! [n :buffer] "<)" "<Plug>(sexp_emit_tail_element)"
-                 "barf backwards")
+        "barf backwards")
   (map! [n :buffer] ">)" "<Plug>(sexp_capture_next_element)"
-                 "slurp forwards")
+        "slurp forwards")
   (map! [n :buffer] "<(" "<Plug>(sexp_capture_prev_element)"
-                 "slurp backwards"))
+        "slurp backwards"))
 
 (augroup! :vim_sexp_mapping
           [[FileType] [fennel lisp clojure scheme]
            `vim-sexp-mappings])
+
+;; we have to define some syntax rules for vim-sexp to work properly.
+;; by default, vim-sexp will completely ignore fennel strings and not treat
+;; them as atoms. vim-sexp will also incorrectly match parens inside strings.
+
+;; these syntax commands alone don't work for some fucking mysterious reason, so
+;; we also wrap it in an autocmd
+
+(augroup! :BullshitFTPluginSyntaxHack
+  ;; fennel is special in that the `:' syntax is used for strings
+  [[FileType] [fennel]
+    `(vim.cmd "syntax match string /:[^()\\[\\]\\{\\}\"'\\~\\@`,;]+/")]
+  [[FileType] [fennel lisp clojure scheme] 
+    `(do (vim.cmd "syntax region string start=/\"/ skip=/\\\\\"/ end=/\"/")
+         (vim.cmd "syntax region comment start=/;/ end=/$/"))])
 
