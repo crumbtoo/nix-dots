@@ -1,2 +1,3 @@
-ftplugin/*.lua
+*.lua
+!./init.lua
 

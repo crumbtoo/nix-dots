@@ -42,7 +42,7 @@
   ;;; language tools
   (opts :nvim-treesitter/nvim-treesitter
         :config #(require :plugins.treesitter))
-  ; (opts :jaawerth/fennel.vim)
+  (opts :jaawerth/fennel.vim)
   (opts :Vigemus/iron.nvim
         :config #(require :plugins.iron))
   (opts :sudormrfbin/cheatsheet.nvim
@@ -90,6 +90,8 @@
   ;;; vim-fu
   (opts :windwp/nvim-autopairs
         :config #(require :plugins.autopairs))
+  ; (opts :jiangmiao/auto-pairs
+  ;       :config #(require :plugins.auto-pairs))
   :andymass/vim-matchup
   :ggandor/leap.nvim
   (opts :kylechui/nvim-surround
