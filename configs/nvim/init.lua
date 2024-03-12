@@ -38,7 +38,7 @@ require("tangerine").setup {
   target  = fennel_target_dir,
 
   rtpdirs = {
-    "after/ftplugin"
+    "after/ftplugin",
   },
 
   compiler = {

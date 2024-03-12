@@ -55,7 +55,7 @@
   (opts :nvim-treesitter/nvim-treesitter-textobjects
         :dependencies [ :nvim-treesitter/nvim-treesitter ]
         :config #(require :plugins.treesitter-textobjects))
-  (opts :dgagn/diagflow.nvim
+  (opts :crumbtoo/diagflow.nvim ; :dgagn/diagflow.nvim
         :event :LspAttach
         :opts (require :plugins.diagflow))
   ;; haskell
