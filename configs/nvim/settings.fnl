@@ -27,6 +27,10 @@
 ;------------------------------------------------------------------------------;
 ; formatting
 
+;; indentation
+(set! autoindent)
+(set! smartindent)
+
 ;; whitespace
 (set! tabstop 4)
 (set! shiftwidth 4)
