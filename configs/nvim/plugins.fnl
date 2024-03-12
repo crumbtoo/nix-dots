@@ -48,7 +48,8 @@
   (opts :sudormrfbin/cheatsheet.nvim
         :main :cheatsheet
         :opts (require :plugins.cheatsheet))
-  :junegunn/vim-easy-align
+  (opts :junegunn/vim-easy-align
+        :config #(require :plugins.easy-align))
   (opts :lervag/vimtex
         :config #(require :plugins.vimtex))
   (opts :nvim-treesitter/nvim-treesitter-textobjects
