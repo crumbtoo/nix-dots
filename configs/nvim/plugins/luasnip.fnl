@@ -1,6 +1,7 @@
 (local ls (require :luasnip))
 
-(ls.setup {})
+(ls.setup
+  {})
 
-(ls.add_snippets )
+; (ls.add_snippets )
 

@@ -146,7 +146,7 @@
             false)]
      (map! [i] :<Tab>
            (fn []
-             (if (ls.expand_or_jumpable)
+             (if (ls.expand_or_locally_jumpable)
                  (ls.expand_or_jump)
                  (t :<Tab>)))
            "expand or jump to snippet")
