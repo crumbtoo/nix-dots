@@ -31,21 +31,21 @@
         "move to next top-level element")
 
   ;; flow
-  (map! [n :buffer] "<C-p>" "<Plug>(sexp_flow_to_next_open)"
+  (map! [nxo :buffer] "<C-p>" "<Plug>(sexp_flow_to_next_open)"
         "flow to next open")
-  (map! [n :buffer] "<C-o>" "<Plug>(sexp_flow_to_prev_open)"
+  (map! [nxo :buffer] "<C-o>" "<Plug>(sexp_flow_to_prev_open)"
         "flow to prev open")
-  (map! [n :buffer] "<C-]>" "<Plug>(sexp_flow_to_next_close)"
+  (map! [nxo :buffer] "<C-]>" "<Plug>(sexp_flow_to_next_close)"
         "flow to next close")
-  (map! [n :buffer] "<C-[>" "<Plug>(sexp_flow_to_prev_close)"
+  (map! [nxo :buffer] "<C-[>" "<Plug>(sexp_flow_to_prev_close)"
         "flow to prev close")
-  (map! [n :buffer] "W" "<Plug>(sexp_flow_to_next_leaf_head)"
+  (map! [nxo :buffer] "W" "<Plug>(sexp_flow_to_next_leaf_head)"
         "flow to next leaf head")
-  (map! [n :buffer] "B" "<Plug>(sexp_flow_to_prev_leaf_head)"
+  (map! [nxo :buffer] "B" "<Plug>(sexp_flow_to_prev_leaf_head)"
         "flow to prev leaf head")
-  (map! [n :buffer] "gE" "<Plug>(sexp_flow_to_prev_leaf_tail)"
+  (map! [nxo :buffer] "gE" "<Plug>(sexp_flow_to_prev_leaf_tail)"
         "flow to prev leaf tail")
-  (map! [n :buffer] "E" "<Plug>(sexp_flow_to_next_leaf_tail)"
+  (map! [nxo :buffer] "E" "<Plug>(sexp_flow_to_next_leaf_tail)"
         "flow to next leaf tail")
 
   ;; align
@@ -87,9 +87,9 @@
   (map! [n :buffer] :>f "<Plug>(sexp_swap_list_forward)"
         "swap form backwards")
   (map! [n :buffer] :<e "<Plug>(sexp_swap_element_backward)"
-        "swap atom backwards")
+        "swap element backwards")
   (map! [n :buffer] :>e "<Plug>(sexp_swap_element_forward)"
-        "swap atom forward")
+        "swap element forward")
 
   ;; slurp/barf
   (map! [n :buffer] ">(" "<Plug>(sexp_emit_head_element)"

@@ -29,7 +29,7 @@
   (opts :startup-nvim/startup.nvim
         :config (require :plugins.startup-nvim)
         :dependencies [ :nvim-telescope/telescope.nvim
-                        :nvim-lua/plenary.nvim])
+                        :nvim-lua/plenary.nvim ])
   :https://gitlab.com/yorickpeterse/nvim-window.git
   (opts :akinsho/toggleterm.nvim
         :config (require :plugins.toggleterm))
@@ -37,11 +37,19 @@
         :config (require :plugins.nvim-tree))
   (opts :lukas-reineke/indent-blankline.nvim
         :main :ibl
-        :opts { :scope {:enabled false} })
+        :opts { :scope {:enabled false}})
+  (opts :nvim-telescope/telescope.nvim
+        :main :telescope)
+  (opts :crumbtoo/nvim-window-mode
+        :dev true
+        :main :nfnl-plugin-example
+        :opts {})
+  :mbbill/undotree
 
   ;;; language tools
   (opts :nvim-treesitter/nvim-treesitter
         :config #(require :plugins.treesitter))
+  :nvim-treesitter/playground
   (opts :jaawerth/fennel.vim)
   (opts :Vigemus/iron.nvim
         :config #(require :plugins.iron))
@@ -53,7 +61,7 @@
   (opts :lervag/vimtex
         :config #(require :plugins.vimtex))
   (opts :nvim-treesitter/nvim-treesitter-textobjects
-        :dependencies [ :nvim-treesitter/nvim-treesitter ]
+        :dependencies [ :nvim-treesitter/nvim-treesitter]
         :config #(require :plugins.treesitter-textobjects))
   (opts :crumbtoo/diagflow.nvim ; :dgagn/diagflow.nvim
         :event :LspAttach
@@ -64,6 +72,12 @@
         :config #((. (require :telescope) :load_extension) :hoogle))
   (opts :MrcJkb/haskell-tools.nvim)
   ;; lisp
+  (opts :clojure-vim/vim-jack-in
+        :filetype :clojure)
+  (opts :radenling/vim-dispatch-neovim
+        :filetype :clojure)
+  ; (opts :eraserhd/parinfer-rust
+  ;       :build "cargo build --release")
   (opts :guns/vim-sexp
         :init #(g! sexp_filetypes "")
         :config #(require :plugins.vim-sexp))
@@ -78,6 +92,7 @@
         :lazy false
         ; load before nvim-autopairs
         :priority 60)
+  :Olical/nfnl
   ;; agda
   ; :msuperdock/vim-agda
   ;; markdown
@@ -102,16 +117,16 @@
         ; :build "make install_jsregexp"
         :opts
           { :link_roots false
-            :keep_roots false
-          }
+            :keep_roots false}
+          
         :version :v2.2
         :config
           (fn []
             (let [ls (require :luasnip.loaders.from_lua)
                   data (.. (vim.fn.stdpath :data) :/luatarget/snippets)]
-              (ls.load { :paths data }))))
+              (ls.load { :paths data}))))
   ;;; misc
   :tpope/vim-fugitive
-  :dbakker/vim-paragraph-motion
-]
+  :dbakker/vim-paragraph-motion]
+
 

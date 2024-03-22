@@ -105,12 +105,6 @@
           (vim.api.nvim_feedkeys :0j :n true)))
       "insert hrule comment")
 
-(map! [n] :<CR>
-      (fn []
-        (with-current-line [ln]
-          (vim.fn.append ln "")))
-      "insert newline below cursor")
-
 (map! [x] :x ":<C-U>call cursor(line(\"'}\") - empty(getline(line(\"'}\"))),col(\"'>\"))<CR>`<1v``"
       "move to paragraph start")
 
@@ -118,7 +112,7 @@
 (map! [n] :<leader>w
       (fn []
         ((. (require :nvim-window) :pick)))
-      "view jump to window options")
+      "view window options")
 
 ;; commentary
 (map! [nxo] :#
